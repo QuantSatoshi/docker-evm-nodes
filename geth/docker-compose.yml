@@ -1,0 +1,91 @@
+version: '3'
+networks:
+  geth:
+    external: true
+
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 32000m
+
+services:
+
+  #
+  # Ethereum mainnet geth
+  #
+  # https://hub.docker.com/r/ethereum/client-go
+  # https://githwcat ub.com/Capgemini-AIE/ethereum-docker/blob/master/docker-compose-standalone.yml
+  #
+
+  # Primary Ethereum instance
+  ethereum:
+    image: ethereum/client-go:latest
+    restart: unless-stopped
+    container_name: ethereum
+    <<: *default-config
+    networks:
+      - geth
+    command: >
+      --http
+      --graphql
+      --graphql.vhosts=*
+      --http.addr 0.0.0.0
+      --port 30303
+      --http.port 8545
+      --http.vhosts=*
+      --authrpc.jwtsecret=/jwtsecret
+      --authrpc.port 8551
+      --authrpc.addr=0.0.0.0
+      --authrpc.vhosts=ethereum
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --http.api=eth,web3,debug
+      --maxpeers=0
+      -cache 8000
+      --txlookuplimit 0
+      --syncmode snap
+    ports:
+      - 127.0.0.1:8545:8545
+      - 127.0.0.1:8546:8546
+      - 127.0.0.1:8551:8551
+      - 30303:30303
+    volumes:
+      - /data/geth:/root/.ethereum
+      # ETH2 beacon chain node secret file for AuthRPC.
+      # Share with your beacon client.
+      # Generate this file: openssl rand -hex 32 > jwtsecret
+      # and share to beacon chain node.
+      - /data/jwtsecret:/jwtsecret
+
+  # Beacon chain node using Lighthouse.
+  # This node does not publicly expose any RPC servers
+  # and only connects to above nodes using authrpc.
+  lighthouse:
+    container_name: lighthouse
+    image: sigp/lighthouse:latest
+    <<: *default-config
+    restart: unless-stopped
+    networks:
+      - geth
+
+    command: >
+      lighthouse
+       --network
+       mainnet
+       beacon
+       --http
+       --http-address=0.0.0.0
+       --http-port=5052
+       --execution-endpoint=http://ethereum:8551
+       --execution-jwt=/jwtsecret
+       --checkpoint-sync-url=https://beaconstate.info
+    environment:
+      # Do a full backtrace when lighthouse crashes
+      - RUST_BACKTRACE=full
+    volumes:
+      - /data/lighthouse:/root/.lighthouse
+      - /data/jwtsecret:/jwtsecret
