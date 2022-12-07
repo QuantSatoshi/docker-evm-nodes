@@ -1,0 +1,38 @@
+version: '3'
+networks:
+  geth:
+    driver: bridge
+
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 32000m
+
+services:
+  arbitrum:
+    container_name: arbitrum
+    image: offchainlabs/nitro-node:v2.0.8-5b9fe9c
+    <<: *default-config
+    restart: unless-stopped
+    networks:
+      - geth
+    command: >
+      --l1.url http://ethereum:8545
+      --l2.chain-id=42161
+      --http.api=net,web3,eth,debug
+      --http.corsdomain=* 
+      --http.addr=0.0.0.0 
+      --http.vhosts=*
+      --ws.port=8548
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --init.url="https://snapshot.arbitrum.io/mainnet/nitro.tar"
+    ports:
+      - 127.0.0.1:8547:8547
+      - 127.0.0.1:8548:8548
+    volumes:
+      - /data/arbitrum:/home/user/.arbitrum
+      - /data/arbitrum/tmp:/tmp
