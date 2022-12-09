@@ -59,7 +59,7 @@ services:
       # Share with your beacon client.
       # Generate this file: openssl rand -hex 32 > jwtsecret
       # and share to beacon chain node.
-      - /data/jwtsecret:/jwtsecret
+      - /data/geth/jwtsecret:/jwtsecret
 
   # Beacon chain node using Lighthouse.
   # This node does not publicly expose any RPC servers
