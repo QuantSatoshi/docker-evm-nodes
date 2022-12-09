@@ -88,4 +88,4 @@ services:
       - RUST_BACKTRACE=full
     volumes:
       - /data/lighthouse:/root/.lighthouse
-      - /data/jwtsecret:/jwtsecret
+      - /data/geth/jwtsecret:/jwtsecret
