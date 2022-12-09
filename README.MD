@@ -1,5 +1,5 @@
-# run ethereum geth node in docker
-# run arbitrum, polygon node in docker
+# Run ethereum geth node in docker
+# Run arbitrum, polygon node in docker
 
 This repo helps you to quickly deploy nodes in any linux env
 
@@ -7,14 +7,14 @@ All data will be store in /data folder
 
 You should mount or link /data folder to a large ssd drive
 
-## start geth
+## Start geth
 ```
 cd geth
 bash setup.sh
 docker compose up -d
 ```
 
-## start polygon
+## Start polygon
 You must start geth first, and synced up to date
 
 ```
@@ -26,10 +26,15 @@ bash setup.sh
 docker compose up -d
 ```
 
-## start arbitrum
+## Start arbitrum
 You must start geth first, and synced up to date
 ```
 cd arbitrum
 bash setup.sh
 docker compose up -d
 ```
+
+
+## Start Optimism
+This is not tested.
+check the files in optimism folder.

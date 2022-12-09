@@ -1,0 +1,119 @@
+version: "3"
+x-logging: &logging
+  environment:
+    - NETWORK_NAME=mainet
+    - NODE_TYPE=full
+    - SYNC_SOURCE=l2
+    - FAULT_DETECTOR__L1_RPC_PROVIDER=http://ethereum:8545
+    - DATA_TRANSPORT_LAYER__RPC_ENDPOINT=http://ethereum:8545
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+  mem_swappiness: 0
+  mem_limit:64000m
+
+services:
+  op-dtl:
+    image: ethereumoptimism/data-transport-layer:${IMAGE_TAG__DTL:-latest}
+    restart: unless-stopped
+    networks:
+      - geth
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/scripts/dtl-start.sh"
+    env_file:
+      - ./envs/${NETWORK_NAME}/dtl.env
+      - .env
+    volumes:
+      - /data/optimism/dtl:/db
+      - /data/optimism/scripts:/scripts
+    ports:
+      - ${PORT__DTL:-7878}:7878
+    <<: *logging
+
+  op-l2geth:
+    image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-latest}
+    restart: unless-stopped
+    stop_grace_period: 3m
+    networks:
+      - geth
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/scripts/check-for-chaindata-berlin.sh && /scripts/l2geth-start.sh"
+    env_file:
+      - ./envs/${NETWORK_NAME}/l2geth.env
+      - .env
+    volumes:
+      - /data/optimism/l2geth:/geth
+      - /data/optimism/scripts:/scripts
+    ports:
+      - ${PORT__L2GETH_HTTP:-9991}:8545
+      - ${PORT__L2GETH_WS:-9992}:8546
+    <<: *logging
+
+  op-healthcheck:
+    image: ethereumoptimism/replica-healthcheck:${IMAGE_TAG__HEALTHCHECK:-latest}
+    restart: unless-stopped
+    networks:
+      - geth
+    env_file:
+      - ./envs/${NETWORK_NAME}/healthcheck.env
+      - .env
+    ports:
+      - ${PORT__HEALTHCHECK_METRICS:-7300}:7300
+    <<: *logging
+
+  op-fault-detector:
+    image: ethereumoptimism/fault-detector:${IMAGE_TAG__FAULT_DETECTOR:-latest}
+    restart: unless-stopped
+    networks:
+      - geth
+    env_file:
+      - ./envs/${NETWORK_NAME}/fault-detector.env
+      - .env
+    ports:
+      - ${PORT__FAULT_DETECTOR_METRICS:-7301}:7300
+    <<: *logging
+
+  op-prometheus:
+    image: prom/prometheus:${IMAGE_TAG__PROMETHEUS:-latest}
+    restart: unless-stopped
+    networks:
+      - geth
+    env_file:
+      - .env
+    volumes:
+      - /data/optimism/prometheus:/etc/prometheus
+      - /data/optimism/prometheus_data:/prometheus
+    ports:
+      - ${PORT__PROMETHEUS:-9090}:9090
+    <<: *logging
+
+  op-grafana:
+    image: grafana/grafana:${IMAGE_TAG__GRAFANA:-9.3.0}
+    restart: unless-stopped
+    networks:
+      - geth
+    env_file:
+      -  ./envs/${NETWORK_NAME}/grafana.env
+    ports:
+      - ${PORT__GRAFANA:-3000}:3000
+    volumes:
+      - /data/optimism/grafana/provisioning/:/etc/grafana/provisioning/:ro
+      - /data/optimism/grafana/dashboards/simple_node_dashboard.json:/var/lib/grafana/dashboards/simple_node_dashboard.json
+      - /data/optimism/grafana_data:/var/lib/grafana
+
+  op-influxdb:
+    image: quay.io/influxdb/influxdb:${IMAGE_TAG__INFLUXDB:-1.6}
+    networks:
+      - geth
+    env_file:
+      - ./envs/${NETWORK_NAME}/influxdb.env
+    ports:
+      - ${PORT__INFLUXDB:-8086}:8086
+    volumes:
+      - /data/optimism/influxdb_data:/var/lib/influxdb

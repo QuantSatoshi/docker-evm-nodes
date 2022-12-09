@@ -40,4 +40,4 @@ if [ ! -z "$DOWNLOAD_SNAP" ]; then
 fi
 
 # if you are under a firewall
-# open these ports 30304, 26656, 26657
+# open these ports 30304, 26656
