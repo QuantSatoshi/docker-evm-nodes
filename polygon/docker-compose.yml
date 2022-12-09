@@ -25,6 +25,7 @@ services:
       start
       --home=/heimdall-home
     ports:
+      - 26657:26657
       - 26656:26656
     volumes:
       - /data/polygon/heimdall:/heimdall-home
@@ -40,7 +41,7 @@ services:
     command: >
       rest-server
       --home=/heimdall-home
-      --node "tcp://heimdall:26656"
+      --node "tcp://heimdall:26657"
     ports:
       - 127.0.0.1:1317:1317
     volumes:
