@@ -38,3 +38,11 @@ docker compose up -d
 ## Start Optimism
 This is not tested.
 check the files in optimism folder.
+
+
+## Start erigon full arhive node for ethereum mainet
+```
+cd erigon-mainet
+bash setup.sh
+docker compose up -d
+```
