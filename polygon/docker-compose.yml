@@ -51,6 +51,7 @@ services:
     container_name: bor
     image: 0xpolygon/bor:0.2.17
     <<: *default-config
+    mem_limit: 128000m
     restart: unless-stopped
     networks:
       - geth
@@ -87,6 +88,6 @@ services:
       - 127.0.0.1:8945:8545
       - 127.0.0.1:8946:8546
     volumes:
-      - /data/polygon/bor:/bor-home
+      - /data/polygon/bor-home:/bor-home/
   # check syncing:
   # curl 'localhost:8945/' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'

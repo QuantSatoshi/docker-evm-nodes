@@ -24,20 +24,19 @@ sha256sum ${FOLDER}/heimdall/config/genesis.json
 # optional, download snapshot
 if [ ! -z "$DOWNLOAD_SNAP" ]; then
   wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2022-11-30.tar.gz -O - | tar -xzf - -C ${FOLDER}/heimdall/data/
-
 fi
 
 #setup bor
 echo "Setup bor..."
-sudo mkdir -p ${FOLDER}/bor
-sudo curl -o ${FOLDER}/bor/genesis.json 'https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/sentry/sentry/bor/genesis.json'
-docker run -v ${FOLDER}/bor:/bor-home:rw -it 0xpolygon/bor:0.2.17 --datadir /bor-home init /bor-home/genesis.json
+sudo mkdir -p ${FOLDER}/bor-home
+sudo curl -o ${FOLDER}/bor-home/genesis.json 'https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/sentry/sentry/bor/genesis.json'
+docker run -v ${FOLDER}/bor-home:/bor-home:rw -it 0xpolygon/bor:0.2.17 --datadir /bor-home init /bor-home/genesis.json
 
 # snapshot download
-sudo mkdir -p ${FOLDER}/bor/chaindata
-sudo chown -R $USER:$USER ${FOLDER}/bor/chaindata
+sudo mkdir -p ${FOLDER}/bor-home/bor
+sudo chown -R $USER:$USER ${FOLDER}/bor-home/bor/chaindata
 if [ ! -z "$DOWNLOAD_SNAP" ]; then
-  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2022-11-21.tar.gz  -O - | tar -xzf - -C ${FOLDER}/bor/chaindata
+  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2022-12-08.tar.gz  -O - | tar -xzf - -C ${FOLDER}/bor-home/bor/chaindata
 fi
 
 # if you are under a firewall

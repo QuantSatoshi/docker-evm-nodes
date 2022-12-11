@@ -4,24 +4,12 @@
 # This file is an example: how to start Erigon's services as separated processes.
 
 # Default: --datadir=/home/erigon/.local/share/erigon
-# Default UID: 3473
-# Default GID: 3473
 # Ports: `9090` execution engine (private api), `9091` sentry, `9092` consensus engine, `9093` snapshot downloader, `9094` TxPool
 # Ports: `8565` json rpc, `8571` consensus json rpc, `30323` eth p2p protocol, `42069` bittorrent protocol,
 
 # Connections: erigon -> (sentries, downloader), rpcdaemon -> (erigon, txpool), txpool -> erigon
 
 version: '2.2'
-
-# Basic erigon's service
-x-erigon-service: &default-erigon-service
-  image: thorax/erigon:latest
-  pid: service:erigon # Use erigon's PID namespace. It's required to open Erigon's DB from another process (RPCDaemon local-mode)
-  volumes:
-    - /data/erigon:/home/erigon
-  restart: unless-stopped
-  mem_swappiness: 0
-  user: ${DOCKER_UID:-0}:${DOCKER_GID:-0}
 
 x-common-variables: &common-variables
   XDG_DATA_HOME: /data/erigon
@@ -35,59 +23,17 @@ services:
         UID: ${DOCKER_UID:-0}
         GID: ${DOCKER_GID:-0}
       context: .
-    command: |
-      erigon ${ERIGON_FLAGS-} --private.api.addr=0.0.0.0:9090
-      --sentry.api.addr=sentry:9091 --downloader.api.addr=downloader:9093 --txpool.disable --maxpeers=0
-      --metrics --metrics.addr=0.0.0.0 --metrics.port=6060 --pprof --pprof.addr=0.0.0.0 --pprof.port=6061
-      --authrpc.jwtsecret=/home/erigon/.local/share/erigon/jwt.hex --datadir=/home/erigon/.local/share/erigon
-    ports: [ "8571:8551" ]
+    command: erigon ${ERIGON_FLAGS-} --private.api.addr=0.0.0.0:9090 --maxpeers=10
     volumes:
-      # It's ok to mount sub-dirs of "datadir" to different drives
-      - /data/erigon:/home/erigon/
+      - /data/erigon:/data/erigon
     restart: unless-stopped
     mem_swappiness: 0
-
-  sentry:
-    <<: *default-erigon-service
-    command: sentry ${SENTRY_FLAGS-} --sentry.api.addr=0.0.0.0:9091 --datadir=/home/erigon/.local/share/erigon
-    ports: [ "30323:30303/tcp", "30325:30303/udp" ]
-
-  downloader:
-    <<: *default-erigon-service
-    command: downloader ${DOWNLOADER_FLAGS-} --downloader.api.addr=0.0.0.0:9093 --datadir=/home/erigon/.local/share/erigon
-    ports: [ "42069:42069/tcp", "42069:42069/udp" ]
-
-  txpool:
-    <<: *default-erigon-service
-    command: txpool ${TXPOOL_FLAGS-} --private.api.addr=erigon:9090 --txpool.api.addr=0.0.0.0:9094 --sentry.api.addr=sentry:9091 --datadir=/home/erigon/.local/share/erigon
-
-  rpcdaemon:
-    <<: *default-erigon-service
-    command: |
-      rpcdaemon ${RPCDAEMON_FLAGS-} --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --ws
-      --private.api.addr=erigon:9090 --txpool.api.addr=txpool:9094 --datadir=/home/erigon/.local/share/erigon
-    ports: [ "8565:8545" ]
-
-  prometheus:
-    image: prom/prometheus:v2.39.1
-    environment: *common-variables
+    mem_limit: 96000m
     user: ${DOCKER_UID:-0}:${DOCKER_GID:-0}
-    command: --log.level=warn --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --storage.tsdb.retention.time=150d --web.console.libraries=/usr/share/prometheus/console_libraries --web.console.templates=/usr/share/prometheus/consoles
-    ports: [ "9110:9090" ]
-    volumes:
-      - /data/erigon/cmd/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - /data/erigon/prometheus:/prometheus
-    restart: unless-stopped
-
-  grafana:
-    image: grafana/grafana:9.2.3
-    environment: *common-variables
-    user: "472:0" # required for grafana version >= 7.3
-    ports: [ "3020:3000" ]
-    volumes:
-      - /data/erigon/cmd/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - /data/erigon/cmd/grafana/datasources:/etc/grafana/provisioning/datasources
-      - /data/erigon/cmd/grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - /data/erigon/erigon-grafana:/var/lib/grafana
-    restart: unless-stopped
-
+    ports:
+      - 8571:8551
+      - 30323:30303
+      - 42069:42069
+      - 8565:8545
+      - 8566:8546
+      - 9090:9090
