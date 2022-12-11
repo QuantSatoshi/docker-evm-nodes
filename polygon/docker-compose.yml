@@ -69,7 +69,7 @@ services:
       --ws.origins=*
       --ipcpath /bor-home/bor.ipc 
       --http.api 'eth,net,web3,txpool,bor' 
-      --syncmode 'full' 
+      --syncmode 'snap' 
       --bor-mainnet 
       --miner.gasprice '30000000000' 
       --miner.gaslimit '20000000' 

@@ -17,6 +17,7 @@ x-common-variables: &common-variables
 services:
   erigon:
     image: thorax/erigon:${TAG:-latest}
+    container_name: erigon-mainnet
     environment: *common-variables
     build:
       args:
