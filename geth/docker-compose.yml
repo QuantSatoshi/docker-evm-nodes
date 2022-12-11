@@ -66,7 +66,7 @@ services:
   # and only connects to above nodes using authrpc.
   lighthouse:
     container_name: lighthouse
-    image: sigp/lighthouse:latest
+    image: sigp/lighthouse:v3.3.0
     <<: *default-config
     restart: unless-stopped
     networks:
