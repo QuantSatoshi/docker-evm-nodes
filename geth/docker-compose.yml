@@ -42,7 +42,7 @@ services:
       --ws.addr=0.0.0.0
       --ws.origins=*
       --http.api=eth,web3,debug
-      --maxpeers=0
+      --maxpeers=20
       --txlookuplimit 0
       --syncmode snap
     ports:
