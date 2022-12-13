@@ -46,3 +46,12 @@ cd erigon-mainet
 bash setup.sh
 docker compose up -d
 ```
+
+
+## useful debug commands
+```
+#attach geth
+docker exec -it ethereum geth attach
+eth.syncing
+
+```

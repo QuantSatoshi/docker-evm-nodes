@@ -71,7 +71,7 @@ services:
     restart: unless-stopped
     networks:
       - geth
-
+    # we add --purge-db because if it stuck with error: database already exists, use --purge-db to force checkpoint sync, service: beacon
     command: >
       lighthouse
        --network
