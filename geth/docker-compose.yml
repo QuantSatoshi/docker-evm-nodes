@@ -30,8 +30,6 @@ services:
       - geth
     command: >
       --http
-      --graphql
-      --graphql.vhosts=*
       --http.addr 0.0.0.0
       --port 30303
       --http.port 8545
@@ -45,7 +43,6 @@ services:
       --ws.origins=*
       --http.api=eth,web3,debug
       --maxpeers=0
-      -cache 8000
       --txlookuplimit 0
       --syncmode snap
     ports:
@@ -74,8 +71,7 @@ services:
     # we add --purge-db because if it stuck with error: database already exists, use --purge-db to force checkpoint sync, service: beacon
     command: >
       lighthouse
-       --network
-       mainnet
+       --network mainnet
        beacon
        --http
        --http-address=0.0.0.0
@@ -86,6 +82,9 @@ services:
     environment:
       # Do a full backtrace when lighthouse crashes
       - RUST_BACKTRACE=full
+    ports:
+      - 9000:9000
+      - 127.0.0.1:5052:5052
     volumes:
       - /data/lighthouse:/root/.lighthouse
       - /data/geth/jwtsecret:/jwtsecret
