@@ -19,4 +19,5 @@ async function updateTag() {
     });
   }
 }
-updateTag() 
+
+updateTag();

@@ -33,6 +33,12 @@ cd arbitrum
 bash setup.sh
 docker compose up -d
 ```
+update tags frequently
+```
+yarn
+node updateTag.js
+docker compose up -d
+```
 
 
 ## Start Optimism
