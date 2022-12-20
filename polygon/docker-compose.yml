@@ -88,5 +88,7 @@ services:
       - 127.0.0.1:8946:8546
     volumes:
       - /data/polygon/bor-home:/bor-home/
+      # map ancient folder separately, you can place ancient folder in separate drive
+      - /data/polygon/bor-home/bor/chaindata/ancient:/bor-home/bor/chaindata/ancient
   # check syncing:
   # curl 'localhost:8945/' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'

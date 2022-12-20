@@ -37,7 +37,7 @@ docker run --rm -v ${FOLDER}/bor-home:/bor-home:rw -it 0xpolygon/bor:0.2.17 --da
 sudo mkdir -p ${FOLDER}/bor-home/bor
 sudo chown -R $USER:$USER ${FOLDER}/bor-home/bor/chaindata
 if [ ! -z "$DOWNLOAD_SNAP" ]; then
-  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2022-12-08.tar.gz  -O - | tar -xzf - -C ${FOLDER}/bor-home/bor/chaindata
+  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2022-12-19.tar.gz  -O - | tar -xzf - -C ${FOLDER}/bor-home/bor/chaindata
 fi
 
 # if you are under a firewall
