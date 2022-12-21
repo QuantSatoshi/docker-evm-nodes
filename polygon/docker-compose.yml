@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     networks:
       - geth
-    entrypoint: /usr/local/bin/heimdalld
+    entrypoint: /usr/bin/heimdalld
     command: >
       start
       --home=/heimdall-home
@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
     networks:
       - geth
-    entrypoint: /usr/local/bin/heimdalld
+    entrypoint: /usr/bin/heimdalld
     command: >
       rest-server
       --home=/heimdall-home
