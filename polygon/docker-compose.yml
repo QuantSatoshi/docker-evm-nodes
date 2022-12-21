@@ -56,6 +56,7 @@ services:
     networks:
       - geth
     command: >
+      server
       --datadir /bor-home
       --port 30304
       --bor.heimdall 'http://heimdallr:1317' 
@@ -70,7 +71,6 @@ services:
       --ipcpath /bor-home/bor.ipc 
       --http.api 'eth,net,web3,txpool,bor' 
       --syncmode 'full'
-      --bor-mainnet
       --miner.gasprice '30000000000' 
       --miner.gaslimit '20000000' 
       --txpool.nolocals 
