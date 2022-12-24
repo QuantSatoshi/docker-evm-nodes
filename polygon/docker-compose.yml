@@ -56,7 +56,6 @@ services:
     networks:
       - geth
     command: >
-      server
       --datadir /bor-home
       --port 30304
       --bor.heimdall 'http://heimdallr:1317' 
