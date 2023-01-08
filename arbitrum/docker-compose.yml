@@ -1,7 +1,7 @@
 version: '3'
 networks:
   geth:
-    driver: bridge
+    external: true
 
 x-config: &default-config
   logging:
