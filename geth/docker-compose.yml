@@ -41,7 +41,7 @@ services:
       --ws
       --ws.addr=0.0.0.0
       --ws.origins=*
-      --http.api=eth,web3,debug
+      --http.api=eth,web3,debug,txpool
       --maxpeers=20
       --txlookuplimit 0
       --syncmode snap

@@ -1,0 +1,50 @@
+version: '3'
+
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 32000m
+
+services:
+
+  #
+  # Ethereum mainnet geth
+  #
+  # https://hub.docker.com/r/ethereum/client-go
+  # https://githwcat ub.com/Capgemini-AIE/ethereum-docker/blob/master/docker-compose-standalone.yml
+  #
+
+  # Primary Ethereum instance
+  ethereum:
+    image: bsc
+    restart: unless-stopped
+    container_name: bsc
+    environment:
+      - NETWORK=mainnet
+    <<: *default-config
+    command: >
+      --http
+      --http.addr 0.0.0.0
+      --port 30333
+      --http.port 8545
+      --http.vhosts=*
+      --http.corsdomain=*
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --http.api=eth,web3,txpool
+      --maxpeers=20
+      --syncmode fast
+    ports:
+      - 30333:30333
+      - 30331:30311
+      - 8745:8545
+      - 8746:8546
+      - 8775:8575
+      - 8776:8576
+    volumes:
+      - /data/bsc:/data
+      - /data/bsc/config:/bsc/config
