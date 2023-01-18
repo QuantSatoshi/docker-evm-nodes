@@ -9,16 +9,7 @@ x-config: &default-config
   mem_limit: 32000m
 
 services:
-
-  #
-  # Ethereum mainnet geth
-  #
-  # https://hub.docker.com/r/ethereum/client-go
-  # https://githwcat ub.com/Capgemini-AIE/ethereum-docker/blob/master/docker-compose-standalone.yml
-  #
-
-  # Primary Ethereum instance
-  ethereum:
+  bsc:
     image: bsc
     restart: unless-stopped
     container_name: bsc
