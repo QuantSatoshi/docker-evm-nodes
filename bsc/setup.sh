@@ -9,4 +9,4 @@ docker build -t bsc .
 cp ./config.toml /data/bsc/config
 cp ./genesis.json /data/bsc/config
 
-docker run -it --rm -v /data/bsc/config:/bsc/config -v /data/bsc:/data bsc geth --datadir data init genesis.json
+docker run -it --rm -v /data/bsc/config:/bsc/config -v /data/bsc/node:/bsc/node bsc --datadir node init config/genesis.json

@@ -37,5 +37,5 @@ services:
       - 8775:8575
       - 8776:8576
     volumes:
-      - /data/bsc:/data
+      - /data/bsc/node:/bsc/node
       - /data/bsc/config:/bsc/config
