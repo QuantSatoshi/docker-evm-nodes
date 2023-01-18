@@ -28,7 +28,7 @@ services:
       --ws.origins=*
       --http.api=eth,web3,txpool
       --maxpeers=20
-      --syncmode fast
+      --syncmode snap
     ports:
       - 30333:30333
       - 30331:30311
