@@ -17,6 +17,7 @@ services:
       - NETWORK=mainnet
     <<: *default-config
     command: >
+      --config /bsc/config/config.toml
       --http
       --http.addr 0.0.0.0
       --port 30333
