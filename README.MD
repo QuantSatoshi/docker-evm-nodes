@@ -61,3 +61,12 @@ docker exec -it ethereum geth attach
 eth.syncing
 
 ```
+
+
+```
+  # check syncing:
+curl 'localhost:8945' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
+```
+
+###
+if "Synchronisation failed, retrying" happens, need to restart node

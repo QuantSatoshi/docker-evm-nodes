@@ -1,4 +1,7 @@
 version: '3'
+networks:
+  geth:
+    external: true
 
 x-config: &default-config
   logging:
@@ -13,14 +16,18 @@ services:
     image: bsc
     restart: unless-stopped
     container_name: bsc
+    networks:
+      - geth
     environment:
       - NETWORK=mainnet
     <<: *default-config
+    entrypoint: geth
     command: >
+      --datadir /bsc/node
       --config /bsc/config/config.toml
       --http
       --http.addr 0.0.0.0
-      --port 30333
+      --port 30311
       --http.port 8545
       --http.vhosts=*
       --http.corsdomain=*
@@ -29,14 +36,12 @@ services:
       --ws.origins=*
       --http.api=eth,web3,txpool
       --maxpeers=20
-      --syncmode snap
+      --syncmode=light
+      --snapshot=false
     ports:
-      - 30333:30333
-      - 30331:30311
+      - 30311:30311
       - 8745:8545
       - 8746:8546
-      - 8775:8575
-      - 8776:8576
     volumes:
       - /data/bsc/node:/bsc/node
       - /data/bsc/config:/bsc/config
