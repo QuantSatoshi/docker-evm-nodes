@@ -14,7 +14,7 @@ x-config: &default-config
 services:
   arbitrum:
     container_name: arbitrum
-    image: offchainlabs/nitro-node:v2.0.10-73224e3
+    image: offchainlabs/nitro-node:v2.0.11-rc.2-b3ab37e
     <<: *default-config
     restart: unless-stopped
     networks:
