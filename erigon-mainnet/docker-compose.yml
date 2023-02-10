@@ -24,7 +24,20 @@ services:
         UID: ${DOCKER_UID:-0}
         GID: ${DOCKER_GID:-0}
       context: .
-    command: erigon ${ERIGON_FLAGS-} --private.api.addr=0.0.0.0:9090 --maxpeers=10
+    command: >
+      erigon ${ERIGON_FLAGS-} 
+      --private.api.addr=0.0.0.0:9090 
+      --maxpeers=20 
+      --http.port 8545
+      --http.vhosts=*
+      --authrpc.jwtsecret=/jwtsecret
+      --authrpc.port 8551
+      --authrpc.addr=0.0.0.0
+      --authrpc.vhosts=ethereum
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --http.api=eth,web3,debug,txpool
     volumes:
       - /data/erigon:/data/erigon
     restart: unless-stopped
