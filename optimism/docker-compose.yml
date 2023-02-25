@@ -1,4 +1,8 @@
 version: "3"
+networks:
+  geth:
+    external: true
+
 x-env: &env
   environment:
     - NETWORK_NAME=mainnet

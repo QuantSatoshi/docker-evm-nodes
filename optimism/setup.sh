@@ -1,3 +1,5 @@
+docker network create -d bridge geth || true
+
 sudo mkdir -p /data/optimism/dtl
 sudo mkdir -p /data/optimism/geth
 sudo mkdir -p /data/optimism/op_geth
@@ -12,3 +14,4 @@ sudo mkdir -p /data/optimism/torrent_downloads
 cd ~
 git clone https://github.com/smartcontracts/simple-optimism-node.git
 cd simple-optimism-node
+cp -r envs scripts docker ~/docker-evm-nodes/optimism
