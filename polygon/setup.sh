@@ -6,7 +6,7 @@ docker network create -d bridge geth || true
 FOLDER=/data/polygon
 sudo mkdir -p ${FOLDER}/heimdall
 docker run -it 0xpolygon/heimdall:latest heimdallcli version
-docker run -v ${FOLDER}/heimdall:/heimdall-home:rw --entrypoint /usr/local/bin/heimdalld -it 0xpolygon/heimdall:0.2.12 init --home=/heimdall-home
+docker run -v ${FOLDER}/heimdall:/heimdall-home:rw --entrypoint /usr/local/bin/heimdalld -it 0xpolygon/heimdall:latest init --home=/heimdall-home
 echo "setup heimdall"
 sudo cp ${FOLDER}/heimdall/config/config.toml ${FOLDER}/heimdall/config/config.toml.original
 sudo chown -R $USER:$USER ${FOLDER}/heimdall/config
@@ -15,7 +15,7 @@ sed -i 's/seeds = ""/seeds = "f4f605d60b8ffaaf15240564e58a81103510631c@159.203.9
 sed -i "s/cors_allowed_origins = \[\]/cors_allowed_origins = \[\"\*\"\]/" ${FOLDER}/heimdall/config/config.toml
 sed -i "s/laddr = \"tcp:\/\/127.0.0.1:26657\"/laddr = \"tcp:\/\/0.0.0.0:26657\"/" ${FOLDER}/heimdall/config/config.toml
 
-sed -i 's/eth_rpc_url = "http:\/\/localhost:9545"/eth_rpc_url = "http:\/\/ethereum:9545"/' ${FOLDER}/heimdall/config/heimdall-config.toml
+sed -i 's/eth_rpc_url = "http:\/\/localhost:9545"/eth_rpc_url = "http:\/\/ethereum:8545"/' ${FOLDER}/heimdall/config/heimdall-config.toml
 sed -i 's/bor_rpc_url = "http:\/\/localhost:8545"/bor_rpc_url = "http:\/\/bor:8545"/' ${FOLDER}/heimdall/config/heimdall-config.toml
 
 sudo curl -o ${FOLDER}/heimdall/config/genesis.json https://raw.githubusercontent.com/maticnetwork/heimdall/develop/builder/files/genesis-mainnet-v1.json
@@ -31,7 +31,7 @@ fi
 echo "Setup bor..."
 sudo mkdir -p ${FOLDER}/bor-home
 sudo curl -o ${FOLDER}/bor-home/genesis.json 'https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/sentry/sentry/bor/genesis.json'
-docker run --rm -v ${FOLDER}/bor-home:/bor-home:rw -it 0xpolygon/bor:0.2.17 --datadir /bor-home init /bor-home/genesis.json
+docker run --rm -v ${FOLDER}/bor-home:/bor-home:rw -it 0xpolygon/bor:0.3.3-amd64 server --datadir /bor-home init /bor-home/genesis.json
 
 # snapshot download
 sudo mkdir -p ${FOLDER}/bor-home/bor
