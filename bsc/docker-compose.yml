@@ -36,7 +36,8 @@ services:
       --ws.origins=*
       --http.api=eth,web3,txpool
       --maxpeers=20
-      --syncmode=snap
+      --syncmode=full
+      --pruneancient
       --snapshot=false
     ports:
       - 30311:30311
