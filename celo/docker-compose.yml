@@ -1,0 +1,51 @@
+version: '3'
+networks:
+  geth:
+    external: true
+
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 32000m
+
+services:
+  celo:
+    image: us.gcr.io/celo-org/geth:mainnet
+    restart: unless-stopped
+    container_name: celo
+    networks:
+      - geth
+    environment:
+      - NETWORK=mainnet
+    <<: *default-config
+    entrypoint: geth
+    command: >
+      --datadir /root/.celo
+      --config /root/config.toml
+      --http
+      --http.addr 0.0.0.0
+      --port 30311
+      --http.port 8545
+      --http.vhosts=*
+      --http.corsdomain=*
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --http.api=eth,web3,txpool
+      --light.serve 90
+      --light.maxpeers 1000
+      --maxpeers 1100
+      --verbosity 3
+      --syncmode=full
+      --pruneancient
+      --snapshot=false
+    ports:
+      - 30503:30303
+      - 127.0.0.1:9145:8545
+      - 127.0.0.1:9146:8546
+    volumes:
+      - /data/celo/data:/root/.celo
+      - /data/celo/config.toml:/root/config.toml
