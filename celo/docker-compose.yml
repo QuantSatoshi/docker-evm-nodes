@@ -24,7 +24,6 @@ services:
     entrypoint: geth
     command: >
       --datadir /root/.celo
-      --config /root/config.toml
       --http
       --http.addr 0.0.0.0
       --port 30311
