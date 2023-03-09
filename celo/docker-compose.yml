@@ -40,8 +40,8 @@ services:
       --maxpeers 1100
       --verbosity 3
       --syncmode=full
-      --pruneancient
       --snapshot=false
+      --etherbase=$CELO_ACCOUNT_ADDRESS
     ports:
       - 30503:30303
       - 127.0.0.1:9145:8545
