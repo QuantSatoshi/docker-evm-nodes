@@ -47,4 +47,3 @@ services:
       - 127.0.0.1:9146:8546
     volumes:
       - /data/celo/data:/root/.celo
-      - /data/celo/config.toml:/root/config.toml
