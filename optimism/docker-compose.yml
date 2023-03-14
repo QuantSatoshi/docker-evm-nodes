@@ -37,6 +37,7 @@ services:
 
   op-l2geth:
     image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-latest}
+    container_name: l2geth
     <<: *env
     restart: unless-stopped
     stop_grace_period: 3m
@@ -147,6 +148,7 @@ services:
   op-prometheus:
     image: prom/prometheus:${IMAGE_TAG__PROMETHEUS:-latest}
     restart: unless-stopped
+    container_name: op-prometheus
     env_file:
       - .env
     volumes:
@@ -158,6 +160,7 @@ services:
 
   op-grafana:
     image: grafana/grafana:${IMAGE_TAG__GRAFANA:-9.3.0}
+    container_name: op-grafana
     <<: *env
     restart: unless-stopped
     env_file:
@@ -172,6 +175,7 @@ services:
 
   op-influxdb:
     image: quay.io/influxdb/influxdb:${IMAGE_TAG__INFLUXDB:-1.6}
+    container_name: influxdb
     <<: *env
     networks:
       - geth
