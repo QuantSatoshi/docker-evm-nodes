@@ -22,6 +22,7 @@ x-logging: &logging
 services:
   op-dtl:
     image: ethereumoptimism/data-transport-layer:${IMAGE_TAG__DTL:-latest}
+    container_name: dtl
     <<: *env
     restart: unless-stopped
     entrypoint: /scripts/dtl-start.sh
