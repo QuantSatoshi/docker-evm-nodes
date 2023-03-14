@@ -33,7 +33,7 @@ services:
       - /data/optimism/dtl:/db
       - ./scripts:/scripts
     ports:
-      - ${PORT__DTL:-7878}:7878
+      - ${PORT__DTL:-127.0.0.1:7878}:7878
     <<: *logging
 
   op-l2geth:
@@ -53,8 +53,8 @@ services:
       - /data/optimism/geth:/geth
       - ./scripts:/scripts
     ports:
-      - ${PORT__L2GETH_HTTP:-9991}:8545
-      - ${PORT__L2GETH_WS:-9992}:8546
+      - ${PORT__L2GETH_HTTP:-127.0.0.1:9991}:8545
+      - ${PORT__L2GETH_WS:-127.0.0.1:9992}:8546
     <<: *logging
 
   op-healthcheck:
@@ -103,6 +103,7 @@ services:
 
   op-geth:
     image: ethereumoptimism/op-geth:v1.10.26-166f27c
+    container_name: op-geth
     <<: *env
     restart: unless-stopped
     stop_grace_period: 3m
@@ -111,8 +112,8 @@ services:
       - ./envs/${NETWORK_NAME}/op-geth.env
       - .env
     ports:
-      - ${PORT__OP_GETH_HTTP:-9993}:8545
-      - ${PORT__OP_GETH_WS:-9994}:8546
+      - ${PORT__OP_GETH_HTTP:-127.0.0.1:9993}:8545
+      - ${PORT__OP_GETH_WS:-127.0.0.1:9994}:8546
     volumes:
       - ./scripts:/scripts
       - /data/optimism/shared:/shared
@@ -156,7 +157,7 @@ services:
       - ./docker/prometheus:/etc/prometheus
       - /data/optimism/prometheus_data:/prometheus
     ports:
-      - ${PORT__PROMETHEUS:-9090}:9090
+      - ${PORT__PROMETHEUS:-127.0.0.1:9090}:9090
     <<: *logging
 
   op-grafana:
@@ -167,7 +168,7 @@ services:
     env_file:
       - ./envs/${NETWORK_NAME}/grafana.env
     ports:
-      - ${PORT__GRAFANA:-3000}:3000
+      - ${PORT__GRAFANA:-127.0.0.1:3000}:3000
     volumes:
       - ./docker/grafana/provisioning/:/etc/grafana/provisioning/:ro
       - ./docker/grafana/dashboards/simple_node_dashboard.json:/var/lib/grafana/dashboards/simple_node_dashboard.json
@@ -183,7 +184,7 @@ services:
     env_file:
       - ./envs/${NETWORK_NAME}/influxdb.env
     ports:
-      - ${PORT__INFLUXDB:-8086}:8086
+      - ${PORT__INFLUXDB:-127.0.0.1:8086}:8086
     volumes:
       - /data/optimism/influxdb_data:/var/lib/influxdb
 
@@ -193,7 +194,7 @@ services:
     environment:
       - PASSWORD=${TORRENT_UI_PASSWORD}
     ports:
-      - ${PORT__TORRENT_UI:-8080}:8080
+      - ${PORT__TORRENT_UI:-127.0.0.1:8080}:8080
       - ${PORT__TORRENT:-6881}:6881
       - ${PORT__TORRENT:-6881}:6881/udp
     volumes:
