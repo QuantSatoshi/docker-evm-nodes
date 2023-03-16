@@ -1,0 +1,30 @@
+version: '3'
+networks:
+  geth:
+    external: true
+
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 32000m
+
+services:
+  ava:
+    image: ava
+    restart: unless-stopped
+    container_name: ava
+    networks:
+      - geth
+    <<: *default-config
+    entrypoint: /avalanchego/build/avalanchego
+    command: >
+      --http-allowed-origins *
+      --http-port 9650
+    ports:
+      - 127.0.0.1:9650:9650
+      - 127.0.0.1:9651:9651
+    volumes:
+      - /data/ava:/root/.avalanchego
