@@ -11,9 +11,4 @@ sudo mkdir -p /data/optimism/grafana_data
 sudo mkdir -p /data/optimism/torrent_config
 sudo mkdir -p /data/optimism/torrent_downloads
 
-cd ~
-git clone https://github.com/smartcontracts/simple-optimism-node.git
-cd simple-optimism-node
-cp -r .env envs scripts docker ~/docker-evm-nodes/optimism
-
-NETWORK_NAME=mainnet docker compose up -d
+docker compose up -d

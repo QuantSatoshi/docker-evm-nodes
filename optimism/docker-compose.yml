@@ -65,7 +65,7 @@ services:
       - ./envs/${NETWORK_NAME}/healthcheck.env
       - .env
     ports:
-      - ${PORT__HEALTHCHECK_METRICS:-7300}:7300
+      - ${PORT__HEALTHCHECK_METRICS:-127.0.0.1:7300}:7300
     <<: *logging
 
   op-healthcheck-bedrock:
@@ -76,7 +76,7 @@ services:
       - ./envs/${NETWORK_NAME}/healthcheck-bedrock.env
       - .env
     ports:
-      - ${PORT__HEALTHCHECK_BEDROCK_METRICS:-7302}:7300
+      - ${PORT__HEALTHCHECK_BEDROCK_METRICS:-127.0.0.1:7302}:7300
     <<: *logging
 
   op-fault-detector:
@@ -87,7 +87,7 @@ services:
       - ./envs/${NETWORK_NAME}/fault-detector.env
       - .env
     ports:
-      - ${PORT__FAULT_DETECTOR_METRICS:-7301}:7300
+      - ${PORT__FAULT_DETECTOR_METRICS:-127.0.0.1:7301}:7300
     <<: *logging
 
   fault-detector-bedrock:
@@ -98,7 +98,7 @@ services:
       - ./envs/${NETWORK_NAME}/fault-detector-bedrock.env
       - .env
     ports:
-      - ${PORT__FAULT_DETECTOR_BEDROCK_METRICS:-7303}:7300
+      - ${PORT__FAULT_DETECTOR_BEDROCK_METRICS:-127.0.0.1:7303}:7300
     <<: *logging
 
   op-geth:
