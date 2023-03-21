@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+
+  mongo:
+    restart: on-failure
+
+  injective-core:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-exchange-import:
+    logging:
+      driver: journald
+
+  indexer-exchange-api:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-exchange-process:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-chronos-api:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-chronos-process:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-eventprovider-process:
+    restart: on-failure
+    logging:
+      driver: journald
+
+  indexer-eventprovider-api:
+    restart: on-failure
+    logging:
+      driver: journald

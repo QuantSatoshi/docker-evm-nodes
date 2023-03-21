@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  provisioner:
+    container_name: injective-provisioner
+    image: ubuntu:latest
+    command: [ "bash", "/home/ubuntu/scripts/provision-core.sh" ]
+    environment:
+      TZ: America/New_York
+      DEBIAN_FRONTEND: noninteractive
+      GIT_TESTNET_TAG: ${GIT_TESTNET_TAG}
+      GIT_MAINNET_TAG: ${GIT_MAINNET_TAG}
+      GIT_INJ_ORG: "https://github.com/InjectiveLabs"
+      GIT_NETWORK_CONFIG: "mainnet-config"
+      GIT_RELEASE_REPO_MAINNET: "https://github.com/InjectiveLabs/injective-chain-releases/releases/download"
+      GIT_RELEASE_REPO_TESTNET: "https://github.com/InjectiveLabs/testnet/releases/download"
+      RELEASE_ARCH: "linux-amd64.zip"
+      GIT_API_LATEST_RELEASE_MAINNET: "https://api.github.com/repos/InjectiveLabs/injective-chain-releases/releases/latest"
+      GIT_API_LATEST_RELEASE_TESTNET: "https://api.github.com/repos/InjectiveLabs/testnet/releases/latest"
+      MAINNET_CONFIG: "mainnet-config"
+      MAINNET_CONFIG_LATEST: "10001"
+      TESTNET_CONFIG_LATEST: "corfu/70001"
+      TESTNET_CONFIG: "testnet-config"
+      VOLUMES_PATH: "/home/ubuntu/volumes"
+      SYNC_CORE_SNAPSHOT: ${SYNC_CORE_SNAPSHOT}
+      SYNC_EXCHANGE_SNAPSHOT: ${SYNC_EXCHANGE_SNAPSHOT}
+      SYNC_CHRONOS_SNAPSHOT: ${SYNC_CHRONOS_SNAPSHOT}
+      SYNC_EVENT_PROVIDER_SNAPSHOT: ${SYNC_EVENT_PROVIDER_SNAPSHOT}
+      INJ_HOME: /home/ubuntu/volumes/.injectived
+      NETWORK: ${NETWORK}
+      APP_VERSION: ${APP_VERSION}
+      CHAIN_ID: ${CHAIN_ID}
+      APP_ENV: ${APP_ENV}
+      MONIKER: ${MONIKER}
+      PASSPHRASE: ${PASSPHRASE}
+    networks:
+      - injective
+    volumes:
+      - ./volumes:/home/ubuntu/volumes
+      - ./scripts:/home/ubuntu/scripts
+      - ./env:/home/ubuntu/env
