@@ -1,1 +1,1 @@
-docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d injective-core
+docker compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d injective-core
