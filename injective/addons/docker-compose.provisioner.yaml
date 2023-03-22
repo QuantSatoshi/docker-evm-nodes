@@ -25,7 +25,7 @@ services:
       SYNC_EXCHANGE_SNAPSHOT: ${SYNC_EXCHANGE_SNAPSHOT}
       SYNC_CHRONOS_SNAPSHOT: ${SYNC_CHRONOS_SNAPSHOT}
       SYNC_EVENT_PROVIDER_SNAPSHOT: ${SYNC_EVENT_PROVIDER_SNAPSHOT}
-      INJ_HOME: /home/ubuntu/volumes/.injectived
+      INJ_HOME: /home/ubuntu/volumes/injectived
       NETWORK: ${NETWORK}
       APP_VERSION: ${APP_VERSION}
       CHAIN_ID: ${CHAIN_ID}
@@ -35,6 +35,6 @@ services:
     networks:
       - injective
     volumes:
-      - ./volumes:/home/ubuntu/volumes
+      - /data/injective:/home/ubuntu/volumes
       - ./scripts:/home/ubuntu/scripts
       - ./env:/home/ubuntu/env
