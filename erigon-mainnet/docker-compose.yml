@@ -42,7 +42,7 @@ services:
       - /data/erigon:/data/erigon
     restart: unless-stopped
     mem_swappiness: 0
-    mem_limit: 96000m
+    memory: 96000m
     user: ${DOCKER_UID:-0}:${DOCKER_GID:-0}
     ports:
       - 8571:8551
