@@ -9,7 +9,7 @@ x-config: &default-config
     options:
       max-size: "200m"
   mem_swappiness: 0
-  memory: 32000m
+  mem_limit: 32000m
 
 services:
   celo:

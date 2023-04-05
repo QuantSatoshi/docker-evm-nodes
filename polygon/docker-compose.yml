@@ -9,7 +9,7 @@ x-config: &default-config
     options:
       max-size: "200m"
   mem_swappiness: 0
-  memory: 32000m
+  mem_limit: 32000m
 
 services:
   #polygon
@@ -51,7 +51,7 @@ services:
     container_name: bor
     image: 0xpolygon/bor:0.3.3-amd64
     <<: *default-config
-    memory: 256000m
+    mem_limit: 256000m
     restart: unless-stopped
     networks:
       - geth
