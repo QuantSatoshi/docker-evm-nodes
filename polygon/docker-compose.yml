@@ -9,7 +9,7 @@ x-config: &default-config
     options:
       max-size: "200m"
   mem_swappiness: 0
-  memory: 64000m
+  memory: 32000m
 
 services:
   #polygon
