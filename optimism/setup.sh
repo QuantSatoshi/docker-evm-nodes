@@ -1,3 +1,5 @@
+# reference
+# https://github.com/smartcontracts/simple-optimism-node
 docker network create -d bridge geth || true
 
 sudo mkdir -p /data/optimism/dtl
