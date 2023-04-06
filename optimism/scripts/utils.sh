@@ -30,5 +30,5 @@ function chainwait() {
 }
 
 function config() {
-  echo "$(cast call 0xcbebc5ba53ff12165239cbb3d310fda2236d6ad2 'config(address,string)(string)' 0x68108902De3A5031197a6eB3b74b3b033e8E8e4d $1 --rpc-url https://goerli.infura.io/v3/84842078b09946638c03157f83405213)"
+  echo "$(cast call 0xcbebc5ba53ff12165239cbb3d310fda2236d6ad2 'config(address,string)(string)' 0x68108902De3A5031197a6eB3b74b3b033e8E8e4d $1 --rpc-url https://mainnet.infura.io/v3/84842078b09946638c03157f83405213)"
 }
