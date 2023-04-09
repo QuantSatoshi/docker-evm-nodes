@@ -36,6 +36,8 @@ services:
       APP_VERSION: ${APP_VERSION}
       LOG_BUGSNAG_KEY: ${LOG_BUGSNAG_KEY}
       LOG_BUGSNAG_ENABLED: ${LOG_BUGSNAG_ENABLED}
+    env_file:
+      - .env
     command:
       - /bin/sh
       - -c
@@ -49,7 +51,7 @@ services:
         start
     ports:
       - 27556:26656
-      - 27557:26657
+      - ${PORT__RPC__HTTP:-127.0.0.1:27557}:26657 # rpc port
       - 127.0.0.1:9900:9900
       - 127.0.0.1:9091:9091
       - 127.0.0.1:10337:10337
