@@ -20,6 +20,8 @@ services:
       - geth
     environment:
       - NETWORK=mainnet
+    env_file:
+      - .env
     <<: *default-config
     entrypoint: geth
     command: >
