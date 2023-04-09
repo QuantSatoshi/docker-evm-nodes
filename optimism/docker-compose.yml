@@ -157,7 +157,7 @@ services:
       - ./docker/prometheus:/etc/prometheus
       - /data/optimism/prometheus_data:/prometheus
     ports:
-      - ${PORT__PROMETHEUS:-127.0.0.1:9090}:9090
+      - ${PORT__PROMETHEUS:-127.0.0.1:11091}:9090
     <<: *logging
 
   op-grafana:
