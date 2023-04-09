@@ -41,8 +41,8 @@ services:
       --snapshot=false
     ports:
       - 30311:30311
-      - 127.0.0.1:8745:8545
-      - 127.0.0.1:8746:8546
+      - ${PORT__RPC__HTTP:-127.0.0.1:8745}:8545
+      - ${PORT__RPC__WS:-127.0.0.1:8746}:8546
     volumes:
       - /data/bsc/node:/bsc/node
       - /data/bsc/config:/bsc/config
