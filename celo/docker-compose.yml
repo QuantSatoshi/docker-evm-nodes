@@ -22,6 +22,8 @@ services:
       - NETWORK=mainnet
     <<: *default-config
     entrypoint: geth
+    env_file:
+      - .env
     command: >
       --datadir /root/.celo
       --http
@@ -43,7 +45,7 @@ services:
       --etherbase=$CELO_ACCOUNT_ADDRESS
     ports:
       - 30503:30303
-      - 127.0.0.1:9145:8545
-      - 127.0.0.1:9146:8546
+      - ${PORT__RPC__HTTP:-127.0.0.1:9145}:8545
+      - ${PORT__RPC__WS:-127.0.0.1:9146}:8546
     volumes:
       - /data/celo/data:/root/.celo
