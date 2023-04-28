@@ -14,8 +14,9 @@ x-config: &default-config
 services:
   bsc:
     image: bsc
-    restart: unless-stopped
     container_name: bsc
+    restart: unless-stopped
+    stop_grace_period: 3m
     networks:
       - geth
     environment:

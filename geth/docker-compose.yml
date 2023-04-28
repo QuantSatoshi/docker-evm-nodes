@@ -23,8 +23,9 @@ services:
   # Primary Ethereum instance
   ethereum:
     image: ethereum/client-go:latest
-    restart: unless-stopped
     container_name: ethereum
+    restart: unless-stopped
+    stop_grace_period: 3m
     <<: *default-config
     networks:
       - geth
@@ -66,6 +67,7 @@ services:
     image: sigp/lighthouse:latest
     <<: *default-config
     restart: unless-stopped
+    stop_grace_period: 3m
     networks:
       - geth
     # we add --purge-db because if it stuck with error: database already exists, use --purge-db to force checkpoint sync, service: beacon

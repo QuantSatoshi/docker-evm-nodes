@@ -20,6 +20,7 @@ services:
     image: 0xpolygon/heimdall:latest
     <<: *default-config
     restart: unless-stopped
+    stop_grace_period: 3m
     networks:
       - geth
     entrypoint: /usr/bin/heimdalld
@@ -37,6 +38,7 @@ services:
     image: 0xpolygon/heimdall:latest
     <<: *default-config
     restart: unless-stopped
+    stop_grace_period: 3m
     networks:
       - geth
     entrypoint: /usr/bin/heimdalld
@@ -55,6 +57,7 @@ services:
     <<: *default-config
     mem_limit: 128000m
     restart: unless-stopped
+    stop_grace_period: 3m
     networks:
       - geth
     command: >
