@@ -29,7 +29,9 @@ services:
       --private.api.addr=0.0.0.0:9090 
       --maxpeers=20 
       --http.port 8545
+      --http.addr '0.0.0.0' 
       --http.vhosts=*
+      --http.corsdomain=*
       --authrpc.jwtsecret=/jwtsecret
       --authrpc.port 8551
       --authrpc.addr=0.0.0.0
