@@ -18,6 +18,7 @@ services:
   erigon:
     image: thorax/erigon:stable
     container_name: erigon-mainnet
+    stop_grace_period: 3m
     environment: *common-variables
     build:
       args:
