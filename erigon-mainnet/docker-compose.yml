@@ -42,7 +42,7 @@ services:
       - 8571:8551
       - 30323:30303
       - 42069:42069
-      - 9090:9090
+      - 127.0.0.1:9090:9090
   rpcdaemon:
     image: thorax/erigon:stable
     entrypoint: rpcdaemon
