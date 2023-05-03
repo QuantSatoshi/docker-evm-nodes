@@ -30,7 +30,7 @@ services:
       --private.api.addr=0.0.0.0:9090 
       --maxpeers=20 
       --http.port=8545
-      --http.addr='0.0.0.0' 
+      --http.addr=0.0.0.0
       --http.vhosts=*
       --http.corsdomain=*
       --authrpc.jwtsecret=/jwtsecret
@@ -52,5 +52,4 @@ services:
       - 30323:30303
       - 42069:42069
       - 8645:8545
-      - 8646:8546
       - 9090:9090
