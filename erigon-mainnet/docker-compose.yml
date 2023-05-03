@@ -47,6 +47,7 @@ services:
   rpcdaemon:
     image: thorax/erigon:stable
     entrypoint: rpcdaemon
+    container_name: erigon-mainnet-rpc1
     command: |
       --private.api.addr=erigon:9090 --http.api=admin,eth,erigon,web3,net,debug,trace,txpool,parity --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.port=8545 --graphql --log.dir.path=/logs/node1
     volumes:
@@ -57,7 +58,8 @@ services:
 
   rpcdaemon2:
     image: thorax/erigon:stable
-    entrypoint: rpcdaemon2
+    entrypoint: rpcdaemon
+    container_name: erigon-mainnet-rpc2
     command: |
       --private.api.addr=erigon:9090 --http.api=admin,eth,erigon,web3,net,debug,trace,txpool,parity --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.port=8545 --graphql --log.dir.path=/logs/node1
     volumes:
