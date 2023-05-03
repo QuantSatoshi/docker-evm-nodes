@@ -26,8 +26,7 @@ services:
         GID: ${DOCKER_GID:-0}
       context: .
     command: >
-      erigon ${ERIGON_FLAGS-} 
-      --private.api.addr=0.0.0.0:9090 
+      --private.api.addr=0.0.0.0:9090
       --maxpeers=20 
       --authrpc.jwtsecret=/jwtsecret
       --authrpc.port 8551
