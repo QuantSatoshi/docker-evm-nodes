@@ -29,18 +29,10 @@ services:
       erigon ${ERIGON_FLAGS-} 
       --private.api.addr=0.0.0.0:9090 
       --maxpeers=20 
-      --http.port=8545
-      --http.addr=0.0.0.0
-      --http.vhosts=*
-      --http.corsdomain=*
       --authrpc.jwtsecret=/jwtsecret
       --authrpc.port 8551
       --authrpc.addr=0.0.0.0
       --authrpc.vhosts=ethereum
-      --ws
-      --ws.addr=0.0.0.0
-      --ws.origins=*
-      --http.api=eth,web3,debug,txpool
     volumes:
       - /data/erigon:/data/erigon
     restart: unless-stopped
@@ -51,5 +43,25 @@ services:
       - 8571:8551
       - 30323:30303
       - 42069:42069
-      - 8645:8545
       - 9090:9090
+  rpcdaemon:
+    image: thorax/erigon:stable
+    entrypoint: rpcdaemon
+    command: |
+      --private.api.addr=erigon:9090 --http.api=admin,eth,erigon,web3,net,debug,trace,txpool,parity --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.port=8545 --graphql --log.dir.path=/logs/node1
+    volumes:
+      - /data/erigon/logdir:/logs
+    user: ${DOCKER_UID}:${DOCKER_GID}
+    ports:
+      - 8645:8545
+
+  rpcdaemon2:
+    image: thorax/erigon:stable
+    entrypoint: rpcdaemon2
+    command: |
+      --private.api.addr=erigon:9090 --http.api=admin,eth,erigon,web3,net,debug,trace,txpool,parity --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.port=8545 --graphql --log.dir.path=/logs/node1
+    volumes:
+      - /data/erigon/logdir:/logs
+    user: ${DOCKER_UID}:${DOCKER_GID}
+    ports:
+      - 8655:8545
