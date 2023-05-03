@@ -61,7 +61,7 @@ services:
     command: |
       --private.api.addr=erigon:9090 --http.api=admin,eth,erigon,web3,net,debug,trace,txpool,parity --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.port=8545 --graphql --log.dir.path=/logs/node1
     volumes:
-      - /data/erigon/logdir:/logs
+      - /data/erigon/logdir2:/logs
     user: ${DOCKER_UID:-0}:${DOCKER_UID:-0}
     ports:
       - 8655:8545
