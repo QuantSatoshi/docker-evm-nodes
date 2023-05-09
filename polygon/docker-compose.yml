@@ -53,7 +53,7 @@ services:
 
   bor:
     container_name: bor
-    image: 0xpolygon/bor:latest
+    image: ${DOCKER__IMAGE:-0xpolygon/bor:latest}
     <<: *default-config
     mem_limit: 128000m
     restart: unless-stopped

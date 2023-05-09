@@ -18,6 +18,8 @@ services:
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
+    env_file:
+      - .env
     networks:
       - geth
     command: >
@@ -32,8 +34,8 @@ services:
       --ws.origins=*
       --init.url="https://snapshot.arbitrum.io/mainnet/nitro.tar"
     ports:
-      - 127.0.0.1:8547:8547
-      - 127.0.0.1:8548:8548
+      - ${PORT__RPC__HTTP:-127.0.0.1:8547}:8547
+      - ${PORT__RPC__WS:-127.0.0.1:8548}:8548
     volumes:
       - /data/arbitrum:/home/user/.arbitrum
       - /data/arbitrum/tmp:/tmp

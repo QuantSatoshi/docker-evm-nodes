@@ -22,10 +22,12 @@ services:
 
   # Primary Ethereum instance
   ethereum:
-    image: ethereum/client-go:latest
+    image: ${DOCKER__IMAGE:-ethereum/client-go:latest}
     container_name: ethereum
     restart: unless-stopped
     stop_grace_period: 3m
+    env_file:
+      - .env
     <<: *default-config
     networks:
       - geth
@@ -47,8 +49,8 @@ services:
       --txlookuplimit 0
       --syncmode snap
     ports:
-      - 127.0.0.1:8545:8545
-      - 127.0.0.1:8546:8546
+      - ${PORT__RPC__HTTP:-127.0.0.1:8545}:8545
+      - ${PORT__RPC__WS:-127.0.0.1:8546}:8546
       - 127.0.0.1:8551:8551
       - 30303:30303
     volumes:

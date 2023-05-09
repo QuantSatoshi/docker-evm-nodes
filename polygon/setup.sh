@@ -6,7 +6,7 @@ docker network create -d bridge geth || true
 FOLDER=/data/polygon
 sudo mkdir -p ${FOLDER}/heimdall
 docker run -it 0xpolygon/heimdall:latest heimdallcli version
-docker run -v ${FOLDER}/heimdall:/heimdall-home:rw --entrypoint /usr/local/bin/heimdalld -it 0xpolygon/heimdall:latest init --home=/heimdall-home
+docker run -v ${FOLDER}/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:latest init --home=/heimdall-home
 echo "setup heimdall"
 sudo cp ${FOLDER}/heimdall/config/config.toml ${FOLDER}/heimdall/config/config.toml.original
 sudo chown -R $USER:$USER ${FOLDER}/heimdall/config
@@ -23,22 +23,17 @@ sudo curl -o ${FOLDER}/heimdall/config/genesis.json https://raw.githubuserconten
 sha256sum ${FOLDER}/heimdall/config/genesis.json
 
 # optional, download snapshot
-if [ ! -z "$DOWNLOAD_SNAP" ]; then
-  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2022-12-07.tar.gz -O - | tar -xzf - -C ${FOLDER}/heimdall/data/
-fi
+# see https://wiki.polygon.technology/docs/operate/snapshot-instructions-heimdall-bor/
 
 #setup bor
 echo "Setup bor..."
 sudo mkdir -p ${FOLDER}/bor-home
-sudo curl -o ${FOLDER}/bor-home/genesis.json 'https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/sentry/sentry/bor/genesis.json'
-docker run --rm -v ${FOLDER}/bor-home:/bor-home:rw -it 0xpolygon/bor:0.3.3-amd64 server --datadir /bor-home init /bor-home/genesis.json
+pv bor-mainnet-fullnode-2023-05-02.tar.zst | tar -I zstd -xf - -C /data/polygon/bor/chaindata
 
 # snapshot download
 sudo mkdir -p ${FOLDER}/bor-home/bor
 sudo chown -R $USER:$USER ${FOLDER}/bor-home/bor/chaindata
-if [ ! -z "$DOWNLOAD_SNAP" ]; then
-  wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2022-12-19.tar.gz  -O - | tar -xzf - -C ${FOLDER}/bor-home/bor/chaindata
-fi
+pv heimdall-mainnet-fullnode-2023-05-04.tar.zst | tar -I zstd -xf - -C /data/polygon/heimdall/
 
 # if you are under a firewall
 # open these ports 30304, 26656, 26657
