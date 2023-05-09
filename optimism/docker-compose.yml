@@ -37,7 +37,7 @@ services:
     <<: *logging
 
   op-l2geth:
-    image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-latest}
+    image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-prerelease-0.0.0-fd-release-patch-1}
     container_name: l2geth
     <<: *env
     restart: unless-stopped
