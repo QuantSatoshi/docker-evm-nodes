@@ -44,7 +44,7 @@ services:
       --snapshot=false
       --etherbase=$CELO_ACCOUNT_ADDRESS
     ports:
-      - 30503:30303
+      - 30311:30311
       - ${PORT__RPC__HTTP:-127.0.0.1:9145}:8545
       - ${PORT__RPC__WS:-127.0.0.1:9146}:8546
     volumes:

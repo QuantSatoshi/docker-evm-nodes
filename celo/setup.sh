@@ -5,6 +5,7 @@ mkdir -p /data/celo/data
 
 cd /data/celo/data
 
-docker run -v $PWD:/root/.celo --rm -it $CELO_IMAGE account new
+docker run -v $(pwd):/root/.celo --rm -it $CELO_IMAGE account new
 
 export CELO_ACCOUNT_ADDRESS=<>
+

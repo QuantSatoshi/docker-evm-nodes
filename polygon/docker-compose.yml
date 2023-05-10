@@ -55,7 +55,7 @@ services:
     container_name: bor
     image: ${DOCKER__IMAGE:-0xpolygon/bor:latest}
     <<: *default-config
-    mem_limit: 128000m
+    mem_limit: 256000m
     restart: unless-stopped
     stop_grace_period: 3m
     networks:
