@@ -5,6 +5,8 @@ OLD_PATH=$(pwd)
 cd ~
 git clone https://github.com/bnb-chain/bsc.git || true
 cd ~/bsc
+# change your tag
+git checkout v1.2.3
 docker build -t bsc .
 
 cd $OLD_PATH
@@ -14,3 +16,6 @@ sudo chmod -R 777 /data/bsc
 docker run -it --rm -v /data/bsc/config:/bsc/config -v /data/bsc/node:/bsc/node bsc --datadir node init config/genesis.json
 
 docker network create -d bridge geth || true
+
+cd /
+sudo ln -s /data/bsc

@@ -28,7 +28,7 @@ services:
       --datadir /root/.celo
       --http
       --http.addr 0.0.0.0
-      --port 30311
+      --port 30321
       --http.port 8545
       --http.vhosts=*
       --http.corsdomain=*
@@ -44,7 +44,7 @@ services:
       --snapshot=false
       --etherbase=$CELO_ACCOUNT_ADDRESS
     ports:
-      - 30311:30311
+      - 30321:30321
       - ${PORT__RPC__HTTP:-127.0.0.1:9145}:8545
       - ${PORT__RPC__WS:-127.0.0.1:9146}:8546
     volumes:

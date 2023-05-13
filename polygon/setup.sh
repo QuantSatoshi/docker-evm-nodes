@@ -37,3 +37,6 @@ pv heimdall-mainnet-fullnode-2023-05-04.tar.zst | tar -I zstd -xf - -C /data/pol
 
 # if you are under a firewall
 # open these ports 30304, 26656, 26657
+
+# extract polygon snapshots
+# pv heimdall-mainnet-fullnode-2023-05-04.tar.zst | tar -I zstd -xf - -C /data/polygon/heimdall/
