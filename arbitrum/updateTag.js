@@ -3,6 +3,8 @@ const fs = require('fs');
 
 async function updateTag() {
   const res = await axios.get('https://hub.docker.com/v2/namespaces/offchainlabs/repositories/nitro-node/tags');
+  const allTags = res.data.results.map(x => x.name);
+  console.log("all tags", allTags.slice(0, 10))
   const latestTag = res.data.results[0].name;
   console.log(`got latestTag`, latestTag);
   if (latestTag) {
