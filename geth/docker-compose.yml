@@ -37,7 +37,6 @@ services:
       --port 30303
       --http.port 8545
       --http.vhosts=*
-      --checkpoint-sync-url=https://checkpointz.pietjepuk.net
       --authrpc.jwtsecret=/jwtsecret
       --authrpc.port 8551
       --authrpc.addr=0.0.0.0
