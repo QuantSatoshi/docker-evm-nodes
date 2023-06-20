@@ -69,7 +69,7 @@ services:
       - ${PORT__RPC__WS:-127.0.0.1:8946}:8546
     volumes:
       - ./config.toml:/root/config.toml
-      - /data/polygon/bor-home:/root/.bor
+      - /data/polygon/bor-home/bor:/root/.bor
       # map ancient folder separately, you can place ancient folder in separate drive
       # - /data/polygon/bor-home/bor/chaindata/ancient:/bor-home/bor/chaindata/ancient
   # check syncing:
