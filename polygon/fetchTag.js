@@ -72,7 +72,7 @@ async function fetchTag() {
             console.log(`got other tag name=${r.name}`);
             if (!webhookSent) {
               webhookSent = true;
-              webhook(`got possible new tag ${r.name}`);
+              webhook(`0xpolygon/bor got possible new tag ${r.name}`);
             }
 
           }
