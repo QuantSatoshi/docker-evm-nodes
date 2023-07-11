@@ -48,7 +48,7 @@ async function fetchTag() {
   const dockerCompose = fs.readFileSync(fileName, 'utf8');
   const currentTagMatch = dockerCompose.match(/image: 0xpolygon\/bor:(.*)/i);
   // console.log(`currentTag`, dockerCompose.substring(currentTag, 10))
-  const currentTag = currentTagMatch[1];
+  const currentTag = currentTagMatch[1].replace('-amd64', '');
   console.log(`currentTag`, currentTag);
   https.get('https://hub.docker.com/v2/namespaces/0xpolygon/repositories/bor/tags', res => {
     let data = [];
