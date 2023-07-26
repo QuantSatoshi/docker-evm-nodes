@@ -74,7 +74,6 @@ async function fetchTag() {
               webhookSent = true;
               webhook(`0xpolygon/bor got possible new tag ${r.name}`);
             }
-
           }
         }
       }
