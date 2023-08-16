@@ -19,7 +19,7 @@ extract_dir=${extract_dir_input:-"${client}_extract"}
 mkdir -p "$extract_dir"
 cd "$extract_dir"
 
-rm -rf "$extract_dir$client-$network-incremental-compiled-files.txt"
+rm -rf "$extract_dir$client-$network-incremental-compiled-files.txt" || true
 # download compiled incremental snapshot files list
 aria2c -x6 -s6 "https://snapshot-download.polygon.technology/$client-$network-incremental-compiled-files.txt"
 
