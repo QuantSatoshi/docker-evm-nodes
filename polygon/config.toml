@@ -1,7 +1,6 @@
 chain = "mainnet"
 identity = "changmesh762hnci97hdgjdychangme"
 verbosity = 3
-log-level = ""
 vmdebug = false
 datadir = "/root/.bor"
 ancient = ""
