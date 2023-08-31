@@ -17,7 +17,7 @@ services:
   #polygon
   heimdall:
     container_name: heimdall
-    image: 0xpolygon/heimdall:latest
+    image: 0xpolygon/heimdall:0.3.4
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
@@ -35,7 +35,7 @@ services:
 
   heimdallr:
     container_name: heimdallr
-    image: 0xpolygon/heimdall:latest
+    image: 0xpolygon/heimdall:0.3.4
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
