@@ -141,7 +141,7 @@ devfakeauthor = false
     [telemetry.influx.tags]
 
 [cache]
-  cache = 102400
+  cache = 300000
   gc = 25
   snapshot = 10
   database = 50
