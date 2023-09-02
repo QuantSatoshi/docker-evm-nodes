@@ -57,7 +57,7 @@ services:
     <<: *default-config
     mem_limit: 256000m
     restart: unless-stopped
-    stop_grace_period: 3m
+    stop_grace_period: 10m
     networks:
       - geth
     command: >
