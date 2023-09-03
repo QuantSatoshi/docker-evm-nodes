@@ -37,6 +37,7 @@ services:
       --port 30303
       --http.port 8545
       --http.vhosts=*
+      --cache 96000
       --authrpc.jwtsecret=/jwtsecret
       --authrpc.port 8551
       --authrpc.addr=0.0.0.0
