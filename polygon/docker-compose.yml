@@ -28,7 +28,7 @@ services:
       start
       --home=/heimdall-home
     ports:
-      - 26657:26657
+      - 127.0.0.1:26657:26657
       - 26656:26656
     volumes:
       - /data/polygon/heimdall:/heimdall-home

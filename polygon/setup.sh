@@ -22,21 +22,4 @@ sudo curl -o ${FOLDER}/heimdall/config/genesis.json https://raw.githubuserconten
 
 sha256sum ${FOLDER}/heimdall/config/genesis.json
 
-# optional, download snapshot
-# see https://wiki.polygon.technology/docs/operate/snapshot-instructions-heimdall-bor/
-
-#setup bor
-echo "Setup bor..."
-sudo mkdir -p ${FOLDER}/bor-home
-pv bor-mainnet-fullnode-2023-05-02.tar.zst | tar -I zstd -xf - -C /data/polygon/bor/chaindata
-
-# snapshot download
-sudo mkdir -p ${FOLDER}/bor-home/bor
-sudo chown -R $USER:$USER ${FOLDER}/bor-home/bor/chaindata
-pv heimdall-mainnet-fullnode-2023-05-04.tar.zst | tar -I zstd -xf - -C /data/polygon/heimdall/
-
-# if you are under a firewall
-# open these ports 30304, 26656, 26657
-
-# extract polygon snapshots
-# pv heimdall-mainnet-fullnode-2023-05-04.tar.zst | tar -I zstd -xf - -C /data/polygon/heimdall/
+#  download snapshot
