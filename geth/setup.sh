@@ -8,4 +8,3 @@ else
   echo "creating new jwtsecret"
   openssl rand -hex 32 > jwtsecret
 fi
-
