@@ -4,8 +4,8 @@ docker network create -d bridge geth || true
 
 # do not modify
 sudo mkdir -p /data/polygon/heimdall
-docker run -it 0xpolygon/heimdall:0.3.4 heimdallcli version
-docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:0.3.4 init --home=/heimdall-home
+docker run -it 0xpolygon/heimdall:0.3.5 heimdallcli version
+docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:1.0.2 init --home=/heimdall-home
 echo "setup heimdall"
 sudo cp /data/polygon/heimdall/config/config.toml /data/polygon/heimdall/config/config.toml.original
 sudo chown -R $USER:$USER /data/polygon/heimdall/config
@@ -20,7 +20,7 @@ sed -i 's/bor_rpc_url = "http:\/\/localhost:8545"/bor_rpc_url = "http:\/\/bor:85
 sudo curl -o /data/polygon/heimdall/config/genesis.json https://raw.githubusercontent.com/maticnetwork/heimdall/develop/builder/files/genesis-mainnet-v1.json
 
 sha256sum /data/polygon/heimdall/config/genesis.json
-
+# 498669113c72864002c101f65cd30b9d6b159ea2ed4de24169f1c6de5bcccf14
 #  polygon genesis
 sudo curl -o /data/polygon/bor-home/genesis.json 'https://raw.githubusercontent.com/maticnetwork/bor/master/builder/files/genesis-mainnet-v1.json'
 
@@ -34,4 +34,6 @@ docker exec -it bor bor attach /root/.bor/bor.ipc
 
 
 
+# reset heimdall
+# docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:0.3.5 unsafe-reset-all
 
