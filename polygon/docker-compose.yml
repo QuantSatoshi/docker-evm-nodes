@@ -72,6 +72,6 @@ services:
       - ./config.toml:/root/config.toml
       - /data/polygon/bor-home:/root/.bor
       # map ancient folder separately, you can place ancient folder in separate drive
-      # - /data/polygon/bor-home/bor/chaindata/ancient:/bor-home/bor/chaindata/ancient
+      # - /data/polygon/bor-home/bor/chaindata/ancient:/root/.bor/chaindata/ancient
   # check syncing:
   # curl 'localhost:8945/' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'

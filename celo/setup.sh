@@ -9,3 +9,6 @@ docker run -v $(pwd):/root/.celo --rm -it $CELO_IMAGE account new
 
 export CELO_ACCOUNT_ADDRESS=<>
 
+
+# edit .env
+echo "CELO_ACCOUNT_ADDRESS=<>" > .env
