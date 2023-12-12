@@ -2,7 +2,6 @@
 NetworkId = 56
 LightPeers = 100
 TrieTimeout = 150000000000
-UltraLightFraction = 75
 
 [Eth.Miner]
 GasCeil = 140000000
