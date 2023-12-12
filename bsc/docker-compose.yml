@@ -48,4 +48,4 @@ services:
       - ${PORT__RPC__WS:-127.0.0.1:8746}:8546
     volumes:
       - /data/bsc/node:/bsc/node
-      - ./config:/bsc/config
+      - /data/bsc/config:/bsc/config
