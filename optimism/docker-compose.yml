@@ -94,7 +94,7 @@ services:
       - ./docker/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
     ports:
-      - ${PORT__PROMETHEUS:-9090}:9090
+      - ${PORT__PROMETHEUS:-9093}:9090
     profiles:
       - legacy
       - current
@@ -109,7 +109,7 @@ services:
       - ./docker/grafana/dashboards/simple_node_dashboard.json:/var/lib/grafana/dashboards/simple_node_dashboard.json
       - grafana_data:/var/lib/grafana
     ports:
-      - ${PORT__GRAFANA:-3000}:3000
+      - ${PORT__GRAFANA:-3003}:3000
     profiles:
       - legacy
       - current
