@@ -13,4 +13,5 @@ mkdir -p /data/optimism/grafana_data
 mkdir -p /data/optimism/torrent_config
 mkdir -p /data/optimism/torrent_downloads
 
-docker compose up -d
+# for some reason you must specify all service names to start all
+docker compose up -d l2geth healthcheck op-geth op-node bedrock-init  prometheus grafana influxdb
