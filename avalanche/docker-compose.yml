@@ -13,7 +13,7 @@ x-config: &default-config
 
 services:
   ava:
-    image: ava
+    image: avalanchego:master
     restart: unless-stopped
     container_name: ava
     networks:
