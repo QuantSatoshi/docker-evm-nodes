@@ -66,6 +66,7 @@ eth.syncing
 ```
   # check syncing:
 curl 'localhost:8945' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
+curl 'localhost:8945' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":2}'
 ```
 
 ###
