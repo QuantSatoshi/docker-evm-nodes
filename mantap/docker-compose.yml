@@ -6,7 +6,7 @@ volumes:
   op_log:
 
 services:
-  l2:
+  manta-l2:
     build:
       context: .
       dockerfile: Dockerfile.l2
@@ -24,7 +24,7 @@ services:
       - "--rollup.sequencerhttp=https://manta-pacific.calderachain.xyz/http"
       - "--authrpc.jwtsecret=/config/test-jwt-secret.txt"
 
-  op-node:
+  manta-op-node:
     depends_on:
       - l2
     image: "public.ecr.aws/i6b2w2n6/op-node:celestia-2.1.1"
@@ -38,7 +38,7 @@ services:
     command: >
       op-node
       --l1="${L1_RPC_URL}"
-      --l2=http://l2:8551
+      --l2=http://manta-l2:8551
       --l2.jwt-secret=/config/test-jwt-secret.txt
       --sequencer.enabled=false
       --verifier.l1-confs=10
