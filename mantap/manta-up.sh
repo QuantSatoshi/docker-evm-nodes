@@ -2,7 +2,7 @@
 
 set -eu
 
-export L1_RPC_URL="" # config this
+source .env
 L2_URL="http://localhost:9777"
 OP_NODE="$PWD/op-node"
 
