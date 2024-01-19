@@ -60,7 +60,7 @@ services:
     ports:
       - "9778:9778"
       - "9005:9005"
-      - "7300:7300"
+      - "7301:7300"
       - "6060:6060"
     volumes:
       - "${PWD}/p2p-node-key.txt:/config/p2p-node-key.txt"
