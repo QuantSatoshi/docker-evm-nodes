@@ -1,0 +1,67 @@
+version: '3.4'
+
+volumes:
+  l1_data:
+  l2_data:
+  op_log:
+
+services:
+  l2:
+    build:
+      context: .
+      dockerfile: Dockerfile.l2
+    ports:
+      - "9777:8545"
+      - "8060:6060"
+    volumes:
+      - "l2_data:/db"
+      - "${PWD}/manta-genesis.json:/genesis.json"
+      - "${PWD}/jwt-secret.txt:/config/test-jwt-secret.txt"
+    entrypoint:
+      - "/bin/sh"
+      - "/entrypoint.sh"
+      - "--rollup.sequencerhttp=https://manta-pacific.calderachain.xyz/http"
+      - "--authrpc.jwtsecret=/config/test-jwt-secret.txt"
+
+  op-node:
+    depends_on:
+      - l2
+    image: "public.ecr.aws/i6b2w2n6/op-node:celestia-2.1.1"
+    stop_signal: SIGINT
+    stop_grace_period: 30s
+    environment:
+      OP_NODE_S3_BUCKET: "caldera-celestia-cache-prod"
+      OP_NODE_NAMESPACE_ID: 866269ddf77dbc40ed9d
+      OP_NODE_DA_RPC: ""
+    command: >
+      op-node
+      --l1="${L1_RPC_URL}"
+      --l2=http://l2:8551
+      --l2.jwt-secret=/config/test-jwt-secret.txt
+      --sequencer.enabled=false
+      --verifier.l1-confs=10
+      --rollup.config=/rollup.json
+      --rpc.addr=0.0.0.0
+      --rpc.port=9778
+      --p2p.no-discovery=false
+      --p2p.listen.ip=0.0.0.0
+      --p2p.listen.tcp=9005
+      --p2p.listen.udp=9005
+      --p2p.static=/ip4/35.82.210.70/tcp/9003/p2p/16Uiu2HAmL4fvgBQi5jcuiEYDaNcg4hpGqCmyAv4DZuSM8f2USYwQ
+      --snapshotlog.file=/op_log/snapshot.log
+      --p2p.priv.path=/config/p2p-node-key.txt
+      --metrics.enabled
+      --metrics.addr=0.0.0.0
+      --metrics.port=7300
+      --pprof.enabled
+      --rpc.enable-admin
+    ports:
+      - "9778:9778"
+      - "9005:9005"
+      - "7300:7300"
+      - "6060:6060"
+    volumes:
+      - "${PWD}/p2p-node-key.txt:/config/p2p-node-key.txt"
+      - "${PWD}/jwt-secret.txt:/config/test-jwt-secret.txt"
+      - "${PWD}/manta-rollup.json:/rollup.json"
+      - op_log:/op_log
