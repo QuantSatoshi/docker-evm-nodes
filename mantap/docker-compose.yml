@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.l2
+    container_name: manta-l2
     ports:
       - "9777:8545"
       - "8060:6060"
@@ -27,6 +28,7 @@ services:
     depends_on:
       - l2
     image: "public.ecr.aws/i6b2w2n6/op-node:celestia-2.1.1"
+    container_name: manta-op-node
     stop_signal: SIGINT
     stop_grace_period: 30s
     environment:
