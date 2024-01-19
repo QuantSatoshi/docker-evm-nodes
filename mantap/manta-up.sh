@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 set -eu
-
+# setup L1_RPC_URL=xxx in .env
 source .env
+
 L2_URL="http://localhost:9777"
 OP_NODE="$PWD/op-node"
 
@@ -29,14 +30,14 @@ function wait_up {
 # Bring up L2.
 (
   echo "Bringing up L2..."
-  docker-compose -f docker-compose.yml up -d l2
+  docker compose -f docker-compose.yml up -d l2
   wait_up $L2_URL
 )
 
 # Bring up everything else.
 (
   echo "Bringing up L2 services..."
-  docker-compose up -d op-node
+  docker compose up -d op-node
 )
 
 echo "L2 ready."
