@@ -26,7 +26,7 @@ services:
 
   manta-op-node:
     depends_on:
-      - l2
+      - manta-l2
     image: "public.ecr.aws/i6b2w2n6/op-node:celestia-2.1.1"
     container_name: manta-op-node
     stop_signal: SIGINT
