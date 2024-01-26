@@ -27,6 +27,6 @@ services:
       --http-port 9650
     ports:
       - 127.0.0.1:9650:9650
-      - 9651:9651
+      - 127.0.0.1:9651:9651
     volumes:
       - /data/ava:/root/.avalanchego
