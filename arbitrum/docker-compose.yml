@@ -23,8 +23,8 @@ services:
     networks:
       - geth
     command: >
-      --l1.url http://ethereum:8545
-      --l2.chain-id=42161
+      --parent-chain.connection.url http://ethereum:8545
+      --chain.id=42161
       --http.api=net,web3,eth,debug
       --http.corsdomain=* 
       --http.addr=0.0.0.0 
