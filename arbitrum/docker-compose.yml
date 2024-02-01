@@ -14,7 +14,7 @@ x-config: &default-config
 services:
   arbitrum:
     container_name: arbitrum
-    image: offchainlabs/nitro-node:v2.2.2
+    image: offchainlabs/nitro-node:v2.2.2-8f33fea
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 5m
