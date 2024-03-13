@@ -1,5 +1,4 @@
-# Run ethereum geth node in docker
-# Run arbitrum, polygon node in docker
+# Run ethereum, arbitrum, polygon, bsc and more evm node in docker
 
 This repo helps you to quickly deploy nodes in any linux env
 
