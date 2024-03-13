@@ -32,6 +32,7 @@ services:
       --ws.port=8548
       --ws.addr=0.0.0.0
       --ws.origins=*
+      --parent-chain.blob-client.beacon-url http://lighthouse:5052
       --init.url="https://snapshot.arbitrum.foundation/arb1/nitro-pruned.tar"
     ports:
       - ${PORT__RPC__HTTP:-127.0.0.1:8547}:8547
