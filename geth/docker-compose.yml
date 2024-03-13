@@ -84,6 +84,7 @@ services:
        --execution-endpoint=http://ethereum:8551
        --execution-jwt=/jwtsecret
        --checkpoint-sync-url=https://beaconstate.info
+       --purge-db
     environment:
       # Do a full backtrace when lighthouse crashes
       - RUST_BACKTRACE=full
