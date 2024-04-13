@@ -1,9 +1,14 @@
 # sync with https://github.com/smartcontracts/simple-optimism-node/blob/main/docker-compose.yml
 version: "3"
+networks:
+  geth:
+    external: true
 services:
   healthcheck:
     image: ethereumoptimism/replica-healthcheck:${IMAGE_TAG__HEALTHCHECK:-latest}
     restart: unless-stopped
+    networks:
+      - geth
     env_file:
       - ./envs/common/healthcheck.env
       - .env
@@ -13,6 +18,8 @@ services:
   op-geth:
     image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101308.2
     restart: unless-stopped
+    networks:
+      - geth
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-geth.sh
     env_file:
@@ -30,6 +37,8 @@ services:
   op-node:
     image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.7.2
     restart: unless-stopped
+    networks:
+      - geth
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-node.sh
     env_file:
@@ -61,6 +70,8 @@ services:
   prometheus:
     image: prom/prometheus:${IMAGE_TAG__PROMETHEUS:-latest}
     restart: unless-stopped
+    networks:
+      - geth
     env_file:
       - .env
     volumes:
@@ -72,6 +83,8 @@ services:
   grafana:
     image: grafana/grafana:${IMAGE_TAG__GRAFANA:-9.3.0}
     restart: unless-stopped
+    networks:
+      - geth
     env_file:
       -  ./envs/common/grafana.env
     volumes:
@@ -84,6 +97,8 @@ services:
   influxdb:
     image: influxdb:${IMAGE_TAG__INFLUXDB:-1.8}
     restart: unless-stopped
+    networks:
+      - geth
     env_file:
       - ./envs/common/influxdb.env
     volumes:
