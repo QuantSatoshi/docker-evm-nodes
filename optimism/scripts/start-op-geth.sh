@@ -29,6 +29,7 @@ exec geth \
   --http.addr=0.0.0.0 \
   --http.port=8545 \
   --http.api=web3,debug,eth,txpool,net,engine \
+  --l1="${OP_NODE__RPC_ENDPOINT}"
   --ws \
   --ws.addr=0.0.0.0 \
   --ws.port=8546 \
