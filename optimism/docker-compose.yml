@@ -1,3 +1,4 @@
+# sync with https://github.com/smartcontracts/simple-optimism-node/blob/main/docker-compose.yml
 version: "3"
 services:
   healthcheck:
@@ -10,7 +11,7 @@ services:
       - ${PORT__HEALTHCHECK_METRICS:-7300}:7300
 
   op-geth:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101304.2
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101308.2
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-geth.sh
@@ -27,7 +28,7 @@ services:
       - ${PORT__OP_GETH_WS:-9994}:8546
 
   op-node:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.4.1
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.7.2
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-node.sh
