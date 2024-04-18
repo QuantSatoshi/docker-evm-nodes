@@ -6,7 +6,7 @@ cd ~
 git clone https://github.com/bnb-chain/bsc.git || true
 cd ~/bsc
 # change your tag
-git checkout v1.2.3
+git checkout v1.4.5
 docker build -t bsc .
 
 cd $OLD_PATH

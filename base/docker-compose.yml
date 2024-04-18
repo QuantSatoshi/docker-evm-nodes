@@ -1,0 +1,39 @@
+version: '3.8'
+networks:
+  geth:
+    external: true
+services:
+  geth: # this is Optimism's geth client
+    image: base
+    restart: unless-stopped
+    networks:
+      - geth
+    stop_grace_period: 5m
+    ports:
+      - 127.0.0.1:8855:8545       # RPC
+      - 8856:8546       # websocket
+      - 37313:30303     # P2P TCP (currently unused)
+      - 37313:30303/udp # P2P UDP (currently unused)
+      - 127.0.0.1:7308:6060       # metrics
+    command: [ "bash", "./geth-entrypoint" ]
+    volumes:
+        - /data/base:/data
+    env_file:
+      - .env
+  node:
+    image: base
+    restart: unless-stopped
+    networks:
+      - geth
+    stop_grace_period: 5m
+    depends_on:
+      - geth
+    ports:
+      - 127.0.0.1:7535:8545     # RPC
+      - 9222:9222     # P2P TCP
+      - 9222:9222/udp # P2P UDP
+      - 127.0.0.1:7307:7300     # metrics
+      - 127.0.0.1:6060:6060     # pprof
+    command: [ "bash", "./op-node-entrypoint" ]
+    env_file:
+      - .env
