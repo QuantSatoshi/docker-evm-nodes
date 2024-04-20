@@ -42,6 +42,7 @@ exec geth \
   --gcmode="$NODE_TYPE" \
   --nodiscover \
   --maxpeers=0 \
+  --snapshot=false \
   --networkid=420 \
   --authrpc.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
