@@ -112,7 +112,7 @@ for file in $(find . -name "$client-$network-snapshot-bulk-*-part-*" -print | so
     # Check if we have already processed this date
     if [[ -z "${processed_dates[$date_stamp]}" ]]; then
         processed_dates[$date_stamp]=1
-        output_tar="/data/bor-snap/$client-$network-snapshot-${date_stamp}.tar.zst"
+        output_tar="/tmp/bor-snap/$client-$network-snapshot-${date_stamp}.tar.zst"
         echo "Join parts for ${date_stamp} then extract"
         cat $client-$network-snapshot-${date_stamp}-part* > "$output_tar"
         rm $client-$network-snapshot-${date_stamp}-part*
@@ -135,4 +135,5 @@ done
 #    fi
 #done
 
-# bash snapdown.sh --network mainnet --client bor --extract-dir /mnt/ssd7/bor-snap --validate-checksum true
+# temp folder is always /tmp/bor-snap
+# bash snapdown.sh --network mainnet --client bor --extract-dir /data/bor-snap --validate-checksum true
