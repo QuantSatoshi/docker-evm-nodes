@@ -4,6 +4,23 @@ networks:
   geth:
     external: true
 services:
+  l2geth:
+    image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-latest}
+    restart: on-failure
+    stop_grace_period: 5m
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/scripts/init-l2geth.sh && /scripts/start-l2geth.sh"
+    env_file:
+      - ./envs/common/l2geth.env
+      - .env
+    volumes:
+      - geth:/geth
+      - ./scripts/:/scripts/
+    ports:
+      - ${PORT__L2GETH_HTTP:-9991}:8545
+      - ${PORT__L2GETH_WS:-9992}:8546
   healthcheck:
     image: ethereumoptimism/replica-healthcheck:${IMAGE_TAG__HEALTHCHECK:-latest}
     restart: unless-stopped
@@ -33,6 +50,8 @@ services:
     ports:
       - ${PORT__OP_GETH_HTTP:-9993}:8545
       - ${PORT__OP_GETH_WS:-9994}:8546
+      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/udp
+      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/tcp
 
   op-node:
     image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.7.3
