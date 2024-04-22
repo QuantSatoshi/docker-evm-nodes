@@ -23,15 +23,33 @@ echo "Initializing via download..."
 
 # Fix OP link with hardcoded official OP snapshot
 echo "Fetching download link..."
-if [ "$NETWORK_NAME" = "op-mainnet" ]; then
-  BEDROCK_TAR_DOWNLOAD="https://datadirs.optimism.io/mainnet-bedrock.tar.zst"
-elif [ "$NETWORK_NAME" = "op-goerli" ]; then
-  BEDROCK_TAR_DOWNLOAD="https://datadirs.optimism.io/goerli-bedrock.tar.zst"
+
+if [ "$NODE_TYPE" = "full" ]; then
+  # Warning: syncmode=full for syncing full node is deprecated and not recommended to use
+  if [ "${OP_GETH__SYNCMODE+x}" = "full" ]; then
+    if [ "$NETWORK_NAME" = "op-mainnet" ]; then
+      BEDROCK_TAR_DOWNLOAD="https://r2-snapshots.fastnode.io/op/$(curl -s https://r2-snapshots.fastnode.io/op/latest-mainnet)"
+    elif [ "$NETWORK_NAME" = "op-goerli" ]; then
+      BEDROCK_TAR_DOWNLOAD="https://datadirs.optimism.io/goerli-bedrock.tar.zst"
+    fi
+  fi
+elif [ "$NODE_TYPE" = "archive" ]; then
+  if [ "$NETWORK_NAME" = "op-mainnet" ]; then
+    BEDROCK_TAR_DOWNLOAD="$(curl -s https://datadirs.optimism.io/latest/ | grep -oE 'https://[^\"]+')"
+  elif [ "$NETWORK_NAME" = "base-mainnet" ]; then
+    BEDROCK_TAR_DOWNLOAD="https://base-snapshots-mainnet-archive.s3.amazonaws.com/$(curl -s https://base-snapshots-mainnet-archive.s3.amazonaws.com/latest)"
+  elif [ "$NETWORK_NAME" = "base-goerli" ]; then
+    BEDROCK_TAR_DOWNLOAD="https://base-snapshots-goerli-archive.s3.amazonaws.com/$(curl -s https://base-snapshots-goerli-archive.s3.amazonaws.com/latest)"
+  elif [ "$NETWORK_NAME" = "base-sepolia" ]; then
+    BEDROCK_TAR_DOWNLOAD="https://base-snapshots-sepolia-archive.s3.amazonaws.com/$(curl -s https://base-snapshots-sepolia-archive.s3.amazonaws.com/latest)"
+  fi
 fi
 
 if [ -n "${BEDROCK_TAR_DOWNLOAD+x}" ]; then
   if [[ "$BEDROCK_TAR_DOWNLOAD" == *.zst ]]; then
     BEDROCK_TAR_PATH+=".zst"
+  elif [[ "$BEDROCK_TAR_DOWNLOAD" == *.lz4 ]]; then
+    BEDROCK_TAR_PATH+=".lz4"
   fi
 
   echo "Downloading bedrock.tar..."
@@ -40,6 +58,8 @@ if [ -n "${BEDROCK_TAR_DOWNLOAD+x}" ]; then
   echo "Extracting bedrock.tar..."
   if [[ "$BEDROCK_TAR_DOWNLOAD" == *.zst ]]; then
     extractzst $BEDROCK_TAR_PATH $GETH_DATA_DIR
+  elif [[ "$BEDROCK_TAR_DOWNLOAD" == *.lz4 ]]; then
+    extractlz4 $BEDROCK_TAR_PATH $GETH_DATA_DIR
   else
     extract $BEDROCK_TAR_PATH $GETH_DATA_DIR
   fi
