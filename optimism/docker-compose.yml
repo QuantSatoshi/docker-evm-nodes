@@ -16,7 +16,7 @@ services:
       - ${PORT__HEALTHCHECK_METRICS:-7300}:7300
 
   op-geth:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101311.0
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:latest
     restart: unless-stopped
     networks:
       - geth
@@ -37,7 +37,7 @@ services:
       - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/tcp
 
   op-node:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.7.3
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:latest
     restart: unless-stopped
     networks:
       - geth
