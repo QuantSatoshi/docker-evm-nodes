@@ -15,7 +15,7 @@ services:
       - 37313:30303     # P2P TCP (currently unused)
       - 37313:30303/udp # P2P UDP (currently unused)
       - 127.0.0.1:7308:6060       # metrics
-    command: [ "bash", "./geth-entrypoint" ]
+    command: [ "bash", "./execution-entrypoint" ]
     volumes:
         - /data/base:/data
     env_file:
