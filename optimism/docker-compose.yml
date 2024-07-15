@@ -14,7 +14,23 @@ services:
       - .env
     ports:
       - ${PORT__HEALTHCHECK_METRICS:-7300}:7300
-
+  l2geth:
+    image: ethereumoptimism/l2geth:${IMAGE_TAG__L2GETH:-latest}
+    restart: on-failure
+    stop_grace_period: 5m
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/scripts/init-l2geth.sh && /scripts/start-l2geth.sh"
+    env_file:
+      - ./envs/common/l2geth.env
+      - .env
+    volumes:
+      - geth:/geth
+      - ./scripts/:/scripts/
+    ports:
+      - ${PORT__L2GETH_HTTP:-9991}:8545
+      - ${PORT__L2GETH_WS:-9992}:8546
   op-geth:
     image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101315.2
     restart: unless-stopped
