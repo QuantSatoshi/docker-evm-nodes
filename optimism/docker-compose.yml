@@ -37,7 +37,7 @@ services:
       - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/tcp
 
   op-node:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:latest
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.7.7
     restart: unless-stopped
     networks:
       - geth
