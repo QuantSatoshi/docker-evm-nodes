@@ -17,7 +17,7 @@ services:
   #polygon
   heimdall:
     container_name: heimdall
-    image: 0xpolygon/heimdall:1.0.2
+    image: 0xpolygon/heimdall:1.0.6
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
@@ -36,7 +36,7 @@ services:
 
   heimdallr:
     container_name: heimdallr
-    image: 0xpolygon/heimdall:1.0.2
+    image: 0xpolygon/heimdall:1.0.6
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
@@ -54,7 +54,7 @@ services:
 
   bor:
     container_name: bor
-    image: 0xpolygon/bor:1.2.8
+    image: 0xpolygon/bor:1.3.3
     <<: *default-config
     mem_limit: 160000m
     restart: unless-stopped
@@ -72,6 +72,6 @@ services:
       - ./config.toml:/root/config.toml
       - /data/polygon/bor-home:/root/.bor
       # map ancient folder separately, you can place ancient folder in separate drive
-      # - /data/polygon/bor-home/bor/chaindata/ancient:/root/.bor/chaindata/ancient
+      # - /data/polygon/ancient:/root/ancient #you need to change config.toml to match this
   # check syncing:
   # curl 'localhost:8945/' --header 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'

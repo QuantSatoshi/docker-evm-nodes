@@ -50,7 +50,7 @@ async function fetchTag() {
   // console.log(`currentTag`, dockerCompose.substring(currentTag, 10))
   const currentTag = currentTagMatch[1].replace('-amd64', '');
   console.log(`currentTag`, currentTag);
-  https.get('https://hub.docker.com/v2/namespaces/0xpolygon/repositories/bor/tags', res => {
+  https.get(`https://hub.docker.com/v2/namespaces/0xpolygon/repositories/bor/tags`, res => {
     let data = [];
     const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
     console.log('Status Code:', res.statusCode);
