@@ -84,7 +84,7 @@ services:
        --execution-endpoint=http://ethereum:8551
        --execution-jwt=/jwtsecret
        --checkpoint-sync-url https://beaconstate.ethstaker.cc
-       --purge-db
+#--purge-db
 
     environment:
       # Do a full backtrace when lighthouse crashes
