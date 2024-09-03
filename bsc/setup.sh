@@ -19,3 +19,6 @@ docker network create -d bridge geth || true
 
 cd /
 sudo ln -s /data/bsc
+
+# prune node
+docker run -it -d --rm -v /data/bsc/config:/bsc/config -v /data/bsc/node:/bsc/node --entrypoint geth bsc snapshot prune-state --datadir /bsc/node
