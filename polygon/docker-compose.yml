@@ -54,7 +54,7 @@ services:
 
   bor:
     container_name: bor
-    image: 0xpolygon/bor:1.3.7
+    image: 0xpolygon/bor:1.4.0
     <<: *default-config
     mem_limit: 160000m
     restart: unless-stopped
