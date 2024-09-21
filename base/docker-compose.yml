@@ -12,7 +12,8 @@ services:
     ports:
       - 127.0.0.1:8855:8545       # RPC
       - 8856:8546       # websocket
-      - 127.0.0.1:7308:6060       # metrics
+      - 127.0.0.1:7308:6060       # metrics\
+      - 37313:30303
     command: [ "bash", "./execution-entrypoint" ]
     volumes:
         - /data/base:/data
