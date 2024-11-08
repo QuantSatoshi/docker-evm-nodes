@@ -11,7 +11,7 @@ x-config: &default-config
 services:
   # Primary Ethereum instance
   ethereum:
-    image: ${DOCKER__IMAGE:-ethereum/client-go:v1.14.8}
+    image: ${DOCKER__IMAGE:-ethereum/client-go:v1.14.11}
     container_name: ethereum
     restart: unless-stopped
     stop_grace_period: 3m
