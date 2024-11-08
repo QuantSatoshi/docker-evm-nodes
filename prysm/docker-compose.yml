@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  beacon-node:
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    container_name: beacon-node
+    ports:
+      - "4000:4000"
+      - "13000:13000"
+      - "12000:12000/udp"
+    volumes:
+      - /data/prysm:/data
+    command:
+      [
+        "--datadir=/data",
+        "--jwt-secret=/root/ethereum/conf/jwt.hex",
+        "--rpc-host=0.0.0.0",
+        "--http-host=0.0.0.0",
+        "--monitoring-host=0.0.0.0",
+        "--mainnet",
+        "--execution-endpoint=http://ethereum:8551",
+        "--checkpoint-sync-url=https://sync-mainnet.beaconcha.in",
+        "--genesis-beacon-api-url=https://sync-mainnet.beaconcha.in",
+        "--datadir=/data/ethereum/prysm",
+        "--enable-experimental-backfill=true"
+      ]
