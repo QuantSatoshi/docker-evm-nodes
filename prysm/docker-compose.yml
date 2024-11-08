@@ -10,10 +10,11 @@ services:
       - "12000:12000/udp"
     volumes:
       - /data/prysm:/data
+      - /data/ethereum:/ethereum
     command:
       [
         "--datadir=/data",
-        "--jwt-secret=/root/ethereum/conf/jwt.hex",
+        "--jwt-secret=/ethereum/jwtsecret",
         "--rpc-host=0.0.0.0",
         "--http-host=0.0.0.0",
         "--monitoring-host=0.0.0.0",
