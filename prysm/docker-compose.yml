@@ -19,6 +19,7 @@ services:
         "--http-host=0.0.0.0",
         "--monitoring-host=0.0.0.0",
         "--mainnet",
+        "--accept-terms-of-use",
         "--execution-endpoint=http://ethereum:8551",
         "--checkpoint-sync-url=https://sync-mainnet.beaconcha.in",
         "--genesis-beacon-api-url=https://sync-mainnet.beaconcha.in",
