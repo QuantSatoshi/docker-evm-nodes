@@ -1,9 +1,59 @@
 version: '3.8'
 
+x-config: &default-config
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "200m"
+  mem_swappiness: 0
+  mem_limit: 64000m
+
 services:
+  # Primary Ethereum instance
+  ethereum:
+    image: ${DOCKER__IMAGE:-ethereum/client-go:v1.14.8}
+    container_name: ethereum
+    restart: unless-stopped
+    stop_grace_period: 3m
+    env_file:
+      - .env
+    <<: *default-config
+    networks:
+      - geth
+    command: >
+      --http
+      --http.addr 0.0.0.0
+      --port 30303
+      --http.port 8545
+      --http.vhosts=*
+      --cache 96000
+      --authrpc.jwtsecret=/jwtsecret
+      --authrpc.port 8551
+      --authrpc.addr=0.0.0.0
+      --authrpc.vhosts=ethereum
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.origins=*
+      --http.api=eth,web3,debug,txpool,net
+      --maxpeers=20
+      --txlookuplimit 0
+      --syncmode snap
+    ports:
+      - ${PORT__RPC__HTTP:-127.0.0.1:8545}:8545
+      - ${PORT__RPC__WS:-127.0.0.1:8546}:8546
+      - 127.0.0.1:8551:8551
+      - 30303:30303
+    volumes:
+      - /data/geth:/root/.ethereum
+      # ETH2 beacon chain node secret file for AuthRPC.
+      # Share with your beacon client.
+      # Generate this file: openssl rand -hex 32 > jwtsecret
+      # and share to beacon chain node.
+      - /data/geth/jwtsecret:/jwtsecret
   beacon-node:
     image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
     container_name: beacon-node
+    <<: *default-config
     ports:
       - "4000:4000"
       - "13000:13000"
