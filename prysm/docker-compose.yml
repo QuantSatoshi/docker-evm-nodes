@@ -1,4 +1,7 @@
 version: '3.8'
+networks:
+  geth:
+    external: true
 
 x-config: &default-config
   logging:
@@ -51,6 +54,8 @@ services:
       # and share to beacon chain node.
       - /data/geth/jwtsecret:/jwtsecret
   beacon-node:
+    networks:
+      - geth
     image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
     container_name: beacon-node
     <<: *default-config
