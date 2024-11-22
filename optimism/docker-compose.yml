@@ -53,20 +53,20 @@ services:
       - ${PORT__OP_NODE_P2P:-9003}:9003/udp
       - ${PORT__OP_NODE_P2P:-9003}:9003/tcp
 
-  bedrock-init:
-    build:
-      context: ./docker/dockerfiles
-      dockerfile: Dockerfile.bedrock-init
-    entrypoint: /scripts/init-bedrock.sh
-    env_file:
-      - ./envs/${NETWORK_NAME}/op-geth.env
-      - .env
-    volumes:
-      - ./scripts/:/scripts
-      - shared:/shared
-      - op_geth:/geth
-      - geth:/legacy-geth
-      - torrent_downloads:/downloads
+#  bedrock-init:
+#    build:
+#      context: ./docker/dockerfiles
+#      dockerfile: Dockerfile.bedrock-init
+#    entrypoint: /scripts/init-bedrock.sh
+#    env_file:
+#      - ./envs/${NETWORK_NAME}/op-geth.env
+#      - .env
+#    volumes:
+#      - ./scripts/:/scripts
+#      - shared:/shared
+#      - op_geth:/geth
+#      - geth:/legacy-geth
+#      - torrent_downloads:/downloads
 
   prometheus:
     image: prom/prometheus:${IMAGE_TAG__PROMETHEUS:-latest}
