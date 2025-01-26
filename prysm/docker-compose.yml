@@ -108,4 +108,5 @@ services:
       - --rest-api-enabled=true
       - --checkpoint-sync-url=https://sync-mainnet.beaconcha.in
       - --log-destination=CONSOLE
+      - --validators-proposer-default-fee-recipient=0x962cC754e865F4E31D310452970De808C5Dd61d3
       - --data-storage-mode=archive
