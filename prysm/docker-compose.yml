@@ -53,32 +53,59 @@ services:
       # Generate this file: openssl rand -hex 32 > jwtsecret
       # and share to beacon chain node.
       - /data/geth/jwtsecret:/jwtsecret
-  beacon-node:
+#  beacon-node:
+#    networks:
+#      - geth
+#    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+#    container_name: beacon-node
+#    <<: *default-config
+#    ports:
+#      - "4000:4000"
+#      - "13000:13000"
+#      - "12000:12000/udp"
+#    volumes:
+#      - /data/prysm:/data
+#      - /data/ethereum:/ethereum
+#    command:
+#      [
+#        "--datadir=/data",
+#        "--jwt-secret=/ethereum/jwtsecret",
+#        "--rpc-host=0.0.0.0",
+#        "--http-host=0.0.0.0",
+#        "--monitoring-host=0.0.0.0",
+#        "--slots-per-archive-point=32",
+#        "--mainnet",
+#        "--accept-terms-of-use",
+#        "--execution-endpoint=http://ethereum:8551",
+#        "--checkpoint-sync-url=https://sync-mainnet.beaconcha.in",
+#        "--genesis-beacon-api-url=https://sync-mainnet.beaconcha.in",
+#        "--datadir=/data/ethereum/prysm",
+#        "--enable-experimental-backfill=true"
+#      ]
+  teku:
     networks:
       - geth
-    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
-    container_name: beacon-node
+    image: consensys/teku:latest
+    container_name: teku
     <<: *default-config
     ports:
-      - "4000:4000"
-      - "13000:13000"
-      - "12000:12000/udp"
+      - "9000:9000/tcp"
+      - "9000:9000/udp"
+      - "5051:5051"
+    environment:
+      - TEKU_REST_API_ENABLED=true
+      - TEKU_P2P_PORT=9000
     volumes:
-      - /data/prysm:/data
-      - /data/ethereum:/ethereum
+      - /data/teku/:/var/lib/teku
+      - /data/geth/jwtsecret:/jwtsecret
     command:
-      [
-        "--datadir=/data",
-        "--jwt-secret=/ethereum/jwtsecret",
-        "--rpc-host=0.0.0.0",
-        "--http-host=0.0.0.0",
-        "--monitoring-host=0.0.0.0",
-        "--slots-per-archive-point=32",
-        "--mainnet",
-        "--accept-terms-of-use",
-        "--execution-endpoint=http://ethereum:8551",
-        "--checkpoint-sync-url=https://sync-mainnet.beaconcha.in",
-        "--genesis-beacon-api-url=https://sync-mainnet.beaconcha.in",
-        "--datadir=/data/ethereum/prysm",
-        "--enable-experimental-backfill=true"
-      ]
+      - --network=mainnet
+      - --eth1-endpoint=http://ethereum:8545
+      - --ee-endpoint=http://ethereum:8551
+      - --ee-jwt-secret-file=/jwtsecret
+      - --validator-keys=/var/lib/teku/validator/keys:/var/lib/teku/validator/passwords
+      - --data-path=/var/lib/teku
+      - --rest-api-enabled=true
+      - --checkpoint-sync-url=https://sync-mainnet.beaconcha.in
+      - --log-destination=CONSOLE
+      - --data-storage-mode=archive
