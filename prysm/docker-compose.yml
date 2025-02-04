@@ -88,6 +88,7 @@ services:
     image: consensys/teku:latest
     container_name: teku
     <<: *default-config
+    restart: unless-stopped
     ports:
       - "9000:9000/tcp"
       - "9000:9000/udp"
