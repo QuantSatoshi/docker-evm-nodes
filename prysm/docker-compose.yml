@@ -107,9 +107,8 @@ services:
       - --data-path=/var/lib/teku
       - --rest-api-port=5055
       - --rest-api-enabled=true
-      - --rest-api-cors-origins="*"
-      #- --rest-api-interface="0.0.0.0"
-      - --rest-api-host-allowlist="*"
+      - --rest-api-cors-origins=*
+      - --rest-api-host-allowlist=*
       - --checkpoint-sync-url=https://sync-mainnet.beaconcha.in
       - --log-destination=CONSOLE
       - --data-storage-mode=archive
