@@ -106,6 +106,8 @@ services:
       - --ee-jwt-secret-file=/jwtsecret
       - --data-path=/var/lib/teku
       - --rest-api-enabled=true
+      - --rest-api-interface="0.0.0.0"
+      - --rest-api-host-allowlist=["*"]
       - --checkpoint-sync-url=https://sync-mainnet.beaconcha.in
       - --log-destination=CONSOLE
       - --data-storage-mode=archive
