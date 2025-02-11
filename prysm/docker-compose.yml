@@ -92,7 +92,7 @@ services:
     ports:
       - "9000:9000/tcp"
       - "9000:9000/udp"
-      - "5051:5051"
+      - "5055:5055"
     environment:
       - TEKU_REST_API_ENABLED=true
       - TEKU_P2P_PORT=9000
@@ -105,6 +105,7 @@ services:
       - --ee-endpoint=http://ethereum:8551
       - --ee-jwt-secret-file=/jwtsecret
       - --data-path=/var/lib/teku
+      - --rest-api-port=5055
       - --rest-api-enabled=true
       - --rest-api-interface="0.0.0.0"
       - --rest-api-host-allowlist=["*"]
