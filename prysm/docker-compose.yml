@@ -92,7 +92,7 @@ services:
     ports:
       - "9000:9000/tcp"
       - "9000:9000/udp"
-      - "5051:5051"
+      - "5052:5051"
     environment:
       - TEKU_REST_API_ENABLED=true
       - TEKU_P2P_PORT=9000
