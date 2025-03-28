@@ -29,7 +29,8 @@ devfakeauthor = false
 
 [p2p]
     maxpeers = 200
-    port = 30303
+    port = 30304
+    bind = "0.0.0.0"
     # maxpendpeers = 50
     # bind = "0.0.0.0"
     # nodiscover = false
