@@ -4,7 +4,7 @@ docker network create -d bridge geth || true
 
 # do not modify
 sudo mkdir -p /data/polygon/heimdall
-docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:1.0.2 init --home=/heimdall-home
+docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:1.2.1 init --home=/heimdall-home
 echo "setup heimdall"
 sudo chown -R $USER:$USER /data/polygon/heimdall/config
 
@@ -16,6 +16,8 @@ sed -i "s/laddr = \"tcp:\/\/127.0.0.1:26657\"/laddr = \"tcp:\/\/0.0.0.0:26657\"/
 
 sed -i 's/eth_rpc_url = "http:\/\/localhost:9545"/eth_rpc_url = "http:\/\/ethereum:8545"/' /data/polygon/heimdall/config/heimdall-config.toml
 sed -i 's/bor_rpc_url = "http:\/\/localhost:8545"/bor_rpc_url = "http:\/\/bor:8545"/' /data/polygon/heimdall/config/heimdall-config.toml
+
+# you may need to copy config/addrbook.json from another server to get peers faster
 
 sudo curl -o /data/polygon/heimdall/config/genesis.json https://raw.githubusercontent.com/maticnetwork/heimdall/develop/builder/files/genesis-mainnet-v1.json
 
