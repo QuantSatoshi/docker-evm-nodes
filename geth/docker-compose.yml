@@ -22,7 +22,7 @@ services:
 
   # Primary Ethereum instance
   ethereum:
-    image: ${DOCKER__IMAGE:-ethereum/client-go:v1.15.6}
+    image: ${DOCKER__IMAGE:-ethereum/client-go:latest}
     container_name: ethereum
     restart: unless-stopped
     stop_grace_period: 3m
