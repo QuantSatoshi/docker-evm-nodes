@@ -4,7 +4,7 @@ docker network create -d bridge geth || true
 
 # do not modify
 sudo mkdir -p /data/polygon/heimdall
-docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:1.2.1 init --home=/heimdall-home
+docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:latest init --home=/heimdall-home
 echo "setup heimdall"
 sudo chown -R $USER:$USER /data/polygon/heimdall/config
 
