@@ -4,7 +4,7 @@ docker network create -d bridge geth || true
 
 # do not modify
 sudo mkdir -p /data/polygon/heimdall
-docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:latest init --home=/heimdall-home
+docker run -v /data/polygon/heimdall:/heimdall-home:rw --entrypoint /usr/bin/heimdalld -it 0xpolygon/heimdall:1.5.0 init --home=/heimdall-home
 echo "setup heimdall"
 sudo chown -R $USER:$USER /data/polygon/heimdall/config
 
@@ -23,6 +23,8 @@ sudo curl -o /data/polygon/heimdall/config/genesis.json https://raw.githubuserco
 
 sha256sum /data/polygon/heimdall/config/genesis.json
 # 498669113c72864002c101f65cd30b9d6b159ea2ed4de24169f1c6de5bcccf14
+# may need to update heimdall seeds from https://github.com/maticnetwork/heimdall/blob/master/packaging/templates/config/mainnet/config.toml
+
 #  polygon genesis
 sudo curl -o /data/polygon/bor-home/genesis.json 'https://raw.githubusercontent.com/maticnetwork/bor/master/builder/files/genesis-mainnet-v1.json'
 
