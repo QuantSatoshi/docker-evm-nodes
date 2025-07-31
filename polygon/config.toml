@@ -50,7 +50,7 @@ devfakeauthor = false
         dns = [ "enrtree://AKUEZKN7PSKVNR65FZDHECMKOJQSGPARGTPPBI7WS2VUL4EGR6XPC@pos.polygon-peers.io" ]
 
 [heimdall]
-  url = "http://heimdallr:1317"
+  url = "http://heimdall:1317"
   "bor.without" = false
   grpc-address = ""
   "bor.runheimdall" = false

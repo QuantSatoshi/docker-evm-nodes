@@ -17,7 +17,7 @@ services:
   #polygon
   heimdall:
     container_name: heimdall
-    image: 0xpolygon/heimdall:1.2.1
+    image: 0xpolygon/heimdall-v2:0.2.9
     <<: *default-config
     restart: unless-stopped
     stop_grace_period: 3m
@@ -31,23 +31,6 @@ services:
     ports:
       - 127.0.0.1:26657:26657
       - 26656:26656
-    volumes:
-      - /data/polygon/heimdall:/heimdall-home
-
-  heimdallr:
-    container_name: heimdallr
-    image: 0xpolygon/heimdall:1.2.1
-    <<: *default-config
-    restart: unless-stopped
-    stop_grace_period: 3m
-    networks:
-      - geth
-    entrypoint: /usr/bin/heimdalld
-    command: >
-      rest-server
-      --home=/heimdall-home
-      --node "tcp://heimdall:26657"
-    ports:
       - 127.0.0.1:1317:1317
     volumes:
       - /data/polygon/heimdall:/heimdall-home
